@@ -17,3 +17,4 @@ A list of changes made since we took over Team 9's website:
 4. Created Assessment 2 page to make viewing content easier
 5. Added footer to credit both teams' Assessment 1 product
 6. Utilised bootstrap to reformat navbar
+ 
