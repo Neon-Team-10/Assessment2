@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/pico.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <title>UniSim</title>
+
+    <style>
+      [role="tabs"] section {
+          display: none;
+      }
+
+      [role="tabs"] [type="radio"]:checked + section {
+          display: block;
+      }
+
+      nav[role="tab-control"] label {
+          cursor: pointer;
+      }
+
+      label:hover {
+          color: var(--pico-primary-hover);
+      }
+
+      .gh-icon {
+          color: #3d3846;
+          vertical-align: baseline;
+      }
+
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        justify-items: center;
+      }
+
+      .team-member {
+        text-align: center;
+        max-width: 200px;
+      }
+
+      .team-member img {
+        width: 100px;
+        height: 100px;
+        border-radius: 25px;
+        object-fit: cover;
+        margin-bottom: 0.5rem;
+      }
+
+      .team-member h5, .team-member p {
+        margin: 0.2rem 0;
+      }
+
+      .weekly-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+        gap: 1.5rem;
+        justify-items: start;
+      }
+
+      .weekly-item {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+      }
+
+      .weekly-item img {
+        width: 500px;
+        heigh: 350px;
+        object-fit: cover;
+        border-radius: 8px;
+      }
+
+      .weekly-item h4 {
+        font-size: 1.1rem;
+        margin: 0;
+      }
+
+      p.maxw75 {
+        max-width: 75%;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <main class="container">
+      <nav role="tab-control">
+        <ul>
+          <li><h3>UniSim</h3></li>
+          <li>
+            <a href="https://github.com/uoy-team-six">
+              <span class="fa-brands fa-github fa-2xl gh-icon"></span>
+            </a>
+          </li>
+        </ul>
+        <ul>
+          <li><label for="intro-tab">Intro</label></li>
+          <li><label for="team-tab">Team</label></li>
+          <li><label for="weekly-screenshots-tab">Weekly Screenshots</label></li>
+          <li><label for="architecture-tab">Architecture</label></li>
+          <li><label for="download-tab">Download</label></li>
+        </ul>
+      </nav>
+      <div role="tabs">
+        <input hidden="hidden" type="radio" name="tabs" id="intro-tab" checked="checked"/>
+        <section>
+          <p>
+            Welcome to UniSim, a university campus simulation game where you design your ideal campus! 
+            Place essential buildings - from lecture theatres to halls and dining areas - to create a 
+            functional and engaging campus. Your goal is to maximise student satisfaction by making 
+            strategic choices and responding to events on campus, all within a five-minute window.
+          </p>
+          <h4>Screenshots</h4>
+          <div class="grid">
+            <img src="./assets/screenshot_1.png">
+            <img src="./assets/screenshot_2.png">
+          </div>
+        </section>
+
+        <input hidden="hidden" type="radio" name="tabs" id="team-tab"/>
+        <section>
+          <h4>Our Team</h4>
+          <div class="team-grid">
+            <div class="team-member">
+              <img src="./assets/profile_placeholder.png" alt="Profile Placeholder">
+              <h5>Hussain Alhabib</h5>
+              <p><b>Risk Assessment and Mitigation Lead</b></p>
+              <p>Quality Assurance</p>
+            </div>
+            <div class="team-member">
+              <img src="./assets/profile_placeholder.png" alt="Profile Placeholder">
+              <h5>Ellen Matthews</h5>
+              <p><b>Requirements Lead</b></p>
+              <p>Secretary</p>
+            </div>
+            <div class="team-member">
+              <img src="./assets/profile_placeholder.png" alt="Profile Placeholder">
+              <h5>Minnie Poon</h5>
+              <p><b>Method Selection and Planning Lead</b></p>
+              <p>Report Editor</p>
+            </div>
+            <div class="team-member">
+              <img src="./assets/profile_placeholder.png" alt="Profile Placeholder">
+              <h5>Jason Ruan</h5>
+              <p><b>Architecture Lead</b></p>
+              <p>Project Lead</p>
+            </div>
+            <div class="team-member">
+              <img src="./assets/profile_placeholder.png" alt="Profile Placeholder">
+              <h5>Daniel Smith</h5>
+              <p><b>Website Lead</b></p>
+              <p>Secretary</p>
+            </div>
+            <div class="team-member">
+              <img src="./assets/profile_placeholder.png" alt="Profile Placeholder">
+              <h5>Owen Smith</h5>
+              <p><b>Implementation Lead</b></p>
+              <p>Head Developer</p>
+            </div>
+        </section>
+
+        <input hidden="hidden" type="radio" name="tabs" id="weekly-screenshots-tab"/>
+        <section>
+          <div class="weekly-grid">
+            <div class="weekly-item">
+              <h4>Week 1 (w/c 23/09)</h4>
+              <p class="maxw75"><i>There is no weekly screenshot for Week 1, as our objective was to get to know our team members and begin understanding the assessment brief.</i></p>
+            </div>
+            <div class="weekly-item">
+              <h4>Week 2 (w/c 30/09)</h4>
+              <img src="./assets/week-2.png" alt="Week 2 Screenshot">
+            </div>
+            <div class="weekly-item">
+              <h4>Week 3 (w/c 07/10)</h4>
+              <img src="./assets/week-3.png" alt="Week 3 Screenshot">
+            </div>
+            <div class="weekly-item">
+              <h4>Week 4 (w/c 14/10)</h4>
+              <img src="./assets/week-4.png" alt="Week 4 Screenshot">
+            </div>
+            <div class="weekly-item">
+              <h4>Week 5 (w/c 21/10)</h4>
+              <img src="./assets/week-5.png" alt="Week 5 Screenshot">
+            </div>
+            <div class="weekly-item">
+              <h4>Consolidation Week (w/c 28/10)</h4>
+              <img src="./assets/week-c.png" alt="Consolidation Week Screenshot">
+            </div>
+            <div class="weekly-item">
+              <h4>Week 6 (w/c 04/11)</h4>
+              <img src="./assets/week-6.png" alt="Week 6 Screenshot">
+            </div>
+            <div class="weekly-item">
+              <h4>Week 7 (w/c 11/11)</h4>
+              <img src="./assets/week-7.png" alt="Week 7 Screenshot">
+            </div>            
+          </div>
+        </section>
+
+        <input hidden="hidden" type="radio" name="tabs" id="architecture-tab"/>
+        <section>
+          <p>This section presents our architecture diagrams in sequence, from Iteration 1 to Iteration 6, followed by the final architecture diagram and the activity diagram.</p>
+          <h4>Iteration 1: Setup of Textures Module</h4>
+          <img src="./assets/arch-it-1.png" alt="Iteration 1 Architecture Diagram">
+          <h4>Iteration 2: Introduction of Screens Module</h4>
+          <img src="./assets/arch-it-2.png" alt="Iteration 2 Architecture Diagram">
+          <h4>Iteration 3: Adding Core Mechanics</h4>
+          <img src="./assets/arch-it-3.png" alt="Iteration 3 Architecture Diagram">
+          <h4>Iteration 4: Building Placement and Collision Features</h4>
+          <img src="./assets/arch-it-4.png" alt="Iteration 4 Architecture Diagram">
+          <h4>Iteration 5: UI Enhancements</h4>
+          <img src="./assets/arch-it-5.png" alt="Iteration 5 Architecture Diagram">
+          <h4>Iteration 6: Scoring Functionalities</h4>
+          <img src="./assets/arch-it-6.png" alt="Iteration 6 Architecture Diagram">
+          <h4>Our Final/Current Architecture</h4>
+          <img src="./assets/arch-it-final.png" alt="Final Iteration Architecture Diagram">
+          <h4>Our Activity Diagram</h4>
+          <img src="./assets/activity-diagram.png" alt="Activity Architecture Diagram">
+        </section>
+
+        <input hidden="hidden" type="radio" name="tabs" id="download-tab"/>
+        <section>
+          <h4>Requirements</h4>
+          <p>Link to Req1: <a href="./assets/Req1.pdf" target="_blank" rel="noopener noreferrer">Req1.pdf</a></p>
+          <h4>Architecture</h4>
+          <p>Link to Arch1: <a href="./assets/Arch1.pdf" target="_blank" rel="noopener noreferrer">Arch1.pdf</a></p>
+          <h4>Method Selection and Planning</h4>
+          <p>Link to Plan1: <a href="./assets/Plan1.pdf" target="_blank" rel="noopener noreferrer">Plan1.pdf</a></p>
+          <p>Gantt Chart: <a href="./assets/final-gantt-chart.pdf" target="_blank" rel="noopener noreferrer">Our Final Gantt Chart</a></p>
+          <h4>Risk Assessment and Mitigation</h4>
+          <p>Link to Risk1: <a href="./assets/Risk1.pdf" target="_blank" rel="noopener noreferrer">Risk1.pdf</a></p>
+          <h4>Implementation</h4>
+          <p>Link to Impl1: <a href="./assets/Impl1.pdf" target="_blank" rel="noopener noreferrer">Impl1.pdf</a></p>
+          <p>JAR File: <a href="./assets/unisim-1.0-all.jar" target="_blank" rel="noopener noreferrer">unisim-1.0-all.jar</a></p>
+          <p>GitHub Release: <a href="https://github.com/uoy-team-six/unisim/releases/tag/v1.0" target="_blank" rel="noopener noreferrer">Version 1.0</a></p>
+          <p>GitHub Repository: <a href="https://github.com/uoy-team-six/unisim" target="_blank" rel="noopener noreferrer">unisim</a></p>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
