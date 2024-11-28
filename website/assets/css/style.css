@@ -1,0 +1,189 @@
+/* CSS for Webpage Defaults */
+
+body {
+    font-family: "Work Sans", sans-serif;
+    font-weight: 400;
+    background-color: #1F1B24!important;
+    color: #fff!important;
+    padding-top: 80px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+}
+
+
+/* CSS for Navbar */
+
+.navbar {
+    height: 80px;
+    font-size: 18px;
+}
+
+.navbar-toggler {
+    background-color: white!important;    
+}
+
+.navbar-nav {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.navbar-nav a:hover {
+    color: #42a5f5!important;
+}
+
+.nav-link {
+    color: #fff!important;
+    font-size: 20px;
+    padding: 0 1.5rem !important;
+}
+
+.dropdown-item {
+    color: #fff!important;
+}
+
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background-color: #212529;
+        position: absolute;
+        top: 80px;
+        left: 0;
+        right: 0;
+        padding: 1rem 0;
+    }
+    
+    .navbar .nav-link {
+        padding: 0.5rem 0 !important;
+        text-align: center;
+    }
+
+    .dropdown-menu {
+        text-align: center !important;
+    }
+}
+
+
+/* CSS for Home Page */
+
+#home-main h2 {
+    padding: 25px;
+}
+
+#home-main img {
+    padding: 20px;
+    width: 100%;
+    height: auto;
+    max-width: 600px;
+}
+
+#home-main {
+    text-align: center;
+    width: auto;
+}
+
+#footer {
+    font-size: 12px;
+    padding: 5px 75px;
+    text-align: center;
+    width: auto;
+}
+
+#footer a {
+    color: white;
+}
+
+#footer a:hover {
+    color: #42a5f5;
+}
+
+
+/* CSS for Assessment 2 Page */
+
+#a2-main {
+    text-align: left;
+    width: auto;
+}
+
+.deliverable-container {
+    padding-bottom: 35px;
+}
+
+#a2-main h1 {
+    padding-top: 10px;
+}
+
+#a2-main hr {
+    padding-bottom: 20px;
+}
+
+#a2-main h3 {
+    padding-bottom: 5px;
+}
+
+#a2-main .file-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: background-color 0.3s ease;
+    width: 100%;
+    max-width: 350px;
+}
+
+#a2-main .file-item:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+#a2-main .file-item img {
+    width: 24px;
+    height: 24px;
+    padding-bottom: 0;
+}
+
+#a2-main .file-item p {
+    margin: 0;
+}
+
+#a2-main a {
+    color: white;
+    text-decoration: none;
+}
+
+#a2-main a:hover {
+    color: #42a5f5
+}
+
+#a2-main h6 {
+    padding-top: 20px;
+    padding-bottom: 5px;
+}
+
+#a2-main .row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#a2-main .file-info {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: left;
+}
+
+@media (max-width: 768px) {
+    #a2-main .row > div {
+        margin-bottom: 20px;
+    }
+}
+
+
+/* CSS for both pages */
+
+#home-main, #a2-main {
+    padding: 20px 75px;
+}
