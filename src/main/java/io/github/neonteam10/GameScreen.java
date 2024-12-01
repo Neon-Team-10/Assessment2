@@ -1,4 +1,4 @@
-package io.github.uoyteamsix;
+package io.github.neonteam10;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
@@ -9,9 +9,10 @@ import com.badlogic.gdx.maps.MapRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
-import io.github.uoyteamsix.map.GameMap;
-import io.github.uoyteamsix.map.GameMapInput;
-import io.github.uoyteamsix.ui.UiStage;
+
+import io.github.neonteam10.map.GameMap;
+import io.github.neonteam10.map.GameMapInput;
+import io.github.neonteam10.ui.UiStage;
 
 /**
  * A class representing the main gameplay screen.

@@ -1,8 +1,9 @@
-package io.github.uoyteamsix;
+package io.github.neonteam10;
 
 import com.badlogic.gdx.math.MathUtils;
-import io.github.uoyteamsix.map.BuildingPrefab;
-import io.github.uoyteamsix.map.GameMap;
+
+import io.github.neonteam10.map.BuildingPrefab;
+import io.github.neonteam10.map.GameMap;
 
 /**
  * A class which manages the gameplay logic, including the remaining game time, placing buildings, and calculating

@@ -1,4 +1,4 @@
-package io.github.uoyteamsix.map;
+package io.github.neonteam10.map;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;

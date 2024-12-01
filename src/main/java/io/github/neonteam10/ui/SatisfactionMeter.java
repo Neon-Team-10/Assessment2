@@ -1,4 +1,4 @@
-package io.github.uoyteamsix.ui;
+package io.github.neonteam10.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -7,7 +7,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import io.github.uoyteamsix.GameLogic;
+
+import io.github.neonteam10.GameLogic;
 
 /**
  * A class which represents the student satisfaction UI element.

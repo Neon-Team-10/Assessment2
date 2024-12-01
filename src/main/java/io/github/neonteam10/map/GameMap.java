@@ -1,4 +1,4 @@
-package io.github.uoyteamsix.map;
+package io.github.neonteam10.map;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;

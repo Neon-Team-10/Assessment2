@@ -1,11 +1,12 @@
-package io.github.uoyteamsix.ui;
+package io.github.neonteam10.ui;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import io.github.uoyteamsix.GameLogic;
+
+import io.github.neonteam10.GameLogic;
 
 /**
  * A class which holds all the UI elements.

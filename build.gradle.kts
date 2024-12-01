@@ -16,8 +16,10 @@ dependencies {
     implementation("com.badlogicgames.gdx:gdx-backend-lwjgl3:1.12.1")
     implementation("com.badlogicgames.gdx:gdx-platform:1.12.1:natives-desktop")
     implementation("com.badlogicgames.gdx:gdx-freetype-platform:1.12.1:natives-desktop")
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    //testImplementation("org.junit.jupiter:junit-jupiter")
+    //testImplementation(platform("org.junit:junit-bom:5.10.0"))
+    testImplementation("org.junit.jupiter:junit-jupiter:5.7.2") 
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.2")
 }
 
 tasks.compileJava {

@@ -1,4 +1,4 @@
-package io.github.uoyteamsix.ui;
+package io.github.neonteam10.ui;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -7,7 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import io.github.uoyteamsix.GameLogic;
+
+import io.github.neonteam10.GameLogic;
 
 /**
  * A class to represent the game timer UI element.

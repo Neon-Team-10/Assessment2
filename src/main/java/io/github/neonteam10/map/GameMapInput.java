@@ -1,10 +1,11 @@
-package io.github.uoyteamsix.map;
+package io.github.neonteam10.map;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.math.Vector3;
-import io.github.uoyteamsix.CameraController;
-import io.github.uoyteamsix.GameLogic;
+
+import io.github.neonteam10.CameraController;
+import io.github.neonteam10.GameLogic;
 
 /**
  * A class which handles user input events on the game map.

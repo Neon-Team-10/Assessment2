@@ -1,4 +1,4 @@
-package io.github.uoyteamsix.ui;
+package io.github.neonteam10.ui;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
@@ -10,7 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import io.github.uoyteamsix.GameLogic;
+
+import io.github.neonteam10.GameLogic;
 
 import java.util.ArrayList;
 import java.util.List;

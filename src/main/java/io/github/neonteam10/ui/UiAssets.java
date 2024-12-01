@@ -1,4 +1,4 @@
-package io.github.uoyteamsix.ui;
+package io.github.neonteam10.ui;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;

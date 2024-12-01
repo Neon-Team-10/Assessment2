@@ -1,4 +1,4 @@
-package io.github.uoyteamsix.map;
+package io.github.neonteam10.map;
 
 /**
  * A class which represents a building placed on the map.

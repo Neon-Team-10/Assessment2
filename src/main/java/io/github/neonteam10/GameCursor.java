@@ -1,4 +1,4 @@
-package io.github.uoyteamsix;
+package io.github.neonteam10;
 
 public enum GameCursor {
     POINTER("cursors/pointer.png"),

@@ -1,4 +1,4 @@
-package io.github.uoyteamsix;
+package io.github.neonteam10;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
