@@ -5,7 +5,7 @@ import io.github.neonteam10.map.GameMap;
 
 public class GettingStartedAchievement extends GameAchievement {
     private final GameMap gameMap;
-
+    //Achievement for placing a building
     public GettingStartedAchievement(){
         super("Getting Started!","EnterPathHere","Place a building!");
         TiledMap tiledMap = new TiledMap();
