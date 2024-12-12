@@ -108,7 +108,7 @@ public class GameMap {
      * @param y      the y coordinate in world space
      * @see #canPlaceBuilding
      */
-    public void placeBuilding(BuildingPrefab prefab, int x, int y) {
+    private void placeBuilding(BuildingPrefab prefab, int x, int y) {
         for (int prefabX = 0; prefabX < prefab.getWidth(); prefabX++) {
             for (int prefabY = 0; prefabY < prefab.getHeight(); prefabY++) {
                 int mapX = x + prefabX;
