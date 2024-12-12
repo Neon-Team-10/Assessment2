@@ -73,6 +73,6 @@ public class UniSimGame extends Game {
         config.useVsync(true);
 
         // Create an application using the LWJGL3 (desktop) backend.
-        new Lwjgl3Application(new UniSimGame(), config);
+        new Lwjgl3Application(new UniSimGame());
     }
 }
