@@ -18,6 +18,8 @@ dependencies {
     implementation("com.badlogicgames.gdx:gdx-freetype-platform:1.12.1:natives-desktop")
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter") 
+    //testImplementation("com.badlogicgames.gdx:gdx-backend-headless")
+
     //testRuntimeOnly("org.junit.platform:junit-platform-engine")
 }
 
