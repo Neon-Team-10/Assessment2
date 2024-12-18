@@ -69,6 +69,7 @@ public class GameLogic {
         var canteenPrefab = findPrefab("Canteen");
         var recreationPrefab = findPrefab("Recreation");
         var studyPrefab = findPrefab("Study");
+        var roadPrefab = findPrefab("Road");
 
         // Work out the number of students based on how many accommodation buildings there are.
         int studentCount = gameMap.getBuildingCount(accommodationPrefab) * 25;
