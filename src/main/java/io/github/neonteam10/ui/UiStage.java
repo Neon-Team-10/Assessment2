@@ -21,6 +21,7 @@ public class UiStage extends Stage {
 
         // Create a table to fill the whole screen.
         var mainTable = new Table();
+
         mainTable.setFillParent(true);
         addActor(mainTable);
 
@@ -34,11 +35,17 @@ public class UiStage extends Stage {
         topLeftTable.row();
         topLeftTable.add(new CurrentEventBox(assets, gameLogic)).padTop(16.0f);
 
+        Table topRightTable = new Table();
+        topRightTable.add(new PauseButton(assets, gameLogic));
+
         // Create the building toolbar anchored to the bottom center.
         var buildingToolbar = new BuildingToolbar(assets, gameLogic);
         mainTable.add(topLeftTable).expand().top().left().padLeft(25.0f);
+        mainTable.add(topRightTable).expand().top().right().padRight(25.0f);
         mainTable.row();
-        mainTable.add(buildingToolbar).bottom().center().padBottom(5.0f);
+        mainTable.add(buildingToolbar).bottom().center().padBottom(5.0f).colspan(3);
+
+        mainTable.debug();
     }
 
     @Override

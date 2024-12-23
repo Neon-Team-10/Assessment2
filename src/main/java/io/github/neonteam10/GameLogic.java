@@ -21,6 +21,7 @@ public class GameLogic {
     private float remainingTime;
     private float nextBuildingTime;
     private boolean gameOver;
+    private boolean paused;
 
     // Satisfaction.
     private float satisfaction;
@@ -37,6 +38,7 @@ public class GameLogic {
         remainingTime = TOTAL_GAME_TIME;
         nextBuildingTime = 0.0f;
         currentEvent = GameEvent.NONE;
+        paused = true;
     }
 
     public void setMap(GameMap gameMap) {
@@ -129,7 +131,9 @@ public class GameLogic {
         }
 
         // Update timers.
-        remainingTime -= deltaTime;
+        if (!paused) {
+            remainingTime -= deltaTime;
+        }
         if (remainingTime < 0.0f) {
             gameOver = true;
         }
@@ -225,4 +229,10 @@ public class GameLogic {
     public float getEventDurationTimer() {
         return eventDurationTimer;
     }
+
+    public boolean setPaused(boolean paused) {
+        this.paused = paused;
+        return this.paused;
+    }
+
 }
