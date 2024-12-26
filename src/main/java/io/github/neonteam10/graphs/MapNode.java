@@ -12,11 +12,26 @@ public class MapNode {
     Building building;
     List<MapNode> neighbours;
     boolean road;
+    BuildingNode buildingNode;
 
     public MapNode(Building building) {
         this.building = building;
         this.neighbours = new ArrayList<>();
         this.road = building.getRoad();
+        this.buildingNode = null;
+
+    }
+
+    public boolean addBuildingNode(BuildingNode node) {
+        if (buildingNode == null) {
+            buildingNode = node;
+            return true;
+        }
+        return false;
+    }
+
+    public BuildingNode getBuildingNode() {
+        return buildingNode;
     }
 
     public boolean addNeighbour(MapNode neighbour) {
@@ -54,5 +69,12 @@ public class MapNode {
     @Override
     public String toString() {
         return building.getPrefab().getName() + " at " + building.getX() + " " + building.getY();
+    }
+
+    public int getDistance(MapNode targetNode) {
+        if (targetNode.buildingNode == null) {
+            return Integer.MAX_VALUE;
+        }
+        return buildingNode.connections.get(targetNode.buildingNode);
     }
 }

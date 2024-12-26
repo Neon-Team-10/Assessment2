@@ -18,4 +18,17 @@ public class BuildingGraph {
     public boolean addNode(BuildingNode node) {
         return nodes.add(node);
     }
+
+    @Override
+    public String toString() {
+        String out = "BuildingGraph: \n";
+        for (BuildingNode node : nodes) {
+            out += node + " : {";
+            for (BuildingNode node2 : node.connections.keySet()) {
+                out += node2 + ":" + node.connections.get(node2) + ", ";
+            }
+            out += "}\n";
+        }
+        return out;
+    }
 }

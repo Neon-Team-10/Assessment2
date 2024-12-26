@@ -2,8 +2,7 @@ package io.github.neonteam10.graphs;
 
 import io.github.neonteam10.map.Building;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * This graph is purely for literal connections between map nodes (A building can only be connected to roads in this graph)
@@ -24,6 +23,7 @@ public class MapGraph {
         if (!building.getRoad()) {
             BuildingNode buildingNode = new BuildingNode(building);
             buildingGraph.addNode(buildingNode);
+            newNode.addBuildingNode(buildingNode);
             recalculateBuildingGraphConnections();
         }
     }
@@ -66,6 +66,46 @@ public class MapGraph {
     }
 
     public void recalculateBuildingGraphConnections() {
+        for (MapNode startNode : nodes) {
+            Map<MapNode, Integer> nodeConnections = new HashMap<>();
+            for (MapNode node : nodes) {
+                if (node == startNode) {
+                    nodeConnections.put(node, 0);
+                }
+                else {
+                    nodeConnections.put(node, Integer.MAX_VALUE);
+                }
+            }
+            Set<MapNode> unvisited = new HashSet<>(nodes);
+            while (!(unvisited.isEmpty())) {
+                MapNode currentNode = null;
+                int shortestDistance = Integer.MAX_VALUE;
+                for (MapNode node2 : unvisited) {
+                    if (currentNode == null) {
+                        shortestDistance = nodeConnections.get(node2);
+                        currentNode = node2;
+                    }
+                    if (nodeConnections.get(node2) < shortestDistance) {
+                        shortestDistance = nodeConnections.get(node2);
+                        currentNode = node2;
+                    }
+                }
+                unvisited.remove(currentNode);
+                for (MapNode node2 : currentNode.getNeighbours()) {
+                    if (unvisited.contains(node2)) {
+                        if (nodeConnections.get(currentNode) + 1 < nodeConnections.get(node2)) {
+                            nodeConnections.put(node2, nodeConnections.get(currentNode) + 1);
+                            if (startNode.buildingNode != null && node2.buildingNode != null) {
+                                startNode.buildingNode.connections.put(node2.buildingNode, nodeConnections.get(currentNode));
+                                node2.buildingNode.connections.put(startNode.buildingNode, nodeConnections.get(currentNode));
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
 
     }
 }
