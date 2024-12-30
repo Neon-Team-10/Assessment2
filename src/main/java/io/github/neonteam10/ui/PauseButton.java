@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import io.github.neonteam10.GameLogic;
 
 public class PauseButton extends Table {
@@ -23,7 +24,9 @@ public class PauseButton extends Table {
 
         if (pause == null && uiAssets.hasSpritesheetLoaded()) {
             pause = new ImageButton(new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 224, 224, 32, 32)));
-            pause.setSize(100,100);
+            pause.setTransform(true);
+            pause.setOrigin(Align.center);
+            pause.setScale(3);
             pause.setChecked(true);
             pause.addListener(new ClickListener() {
                   @Override
