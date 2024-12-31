@@ -3,9 +3,9 @@ import io.github.neonteam10.GameLogic;
 
 public class FresherAchievement extends GameAchievement{
     private final GameLogic gameLogic;
-    public FresherAchievement(){
+    public FresherAchievement(GameLogic gamelogic){
         super("Fresher","EnterPathHere","Complete your first year in UniSim (Play for a minute)");
-        this.gameLogic = new GameLogic();
+        this.gameLogic = gamelogic;
     }
 
     @Override

@@ -28,13 +28,16 @@ public class GameLogic {
     private float newBuildingSatisfaction;
     private int previousBuildingCount;
 
+    GameScreen screen;
+
     // Events.
     private GameEvent currentEvent;
     private float nextEventProbability;
     private float checkEventTimer;
     private float eventDurationTimer;
 
-    public GameLogic() {
+    public GameLogic(GameScreen screen) {
+        this.screen = screen;
         remainingTime = TOTAL_GAME_TIME;
         nextBuildingTime = 0.0f;
         currentEvent = GameEvent.NONE;
@@ -241,7 +244,7 @@ public class GameLogic {
     }
 
     public void restart() {
-
+        screen.restart();
     }
 
 }

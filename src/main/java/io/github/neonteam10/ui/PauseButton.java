@@ -13,10 +13,13 @@ public class PauseButton extends Table {
     private ImageButton pause;
     private final UiAssets uiAssets;
     private final GameLogic gameLogic;
+    private final Table pauseTable;
 
-    public PauseButton(UiAssets uiAssets, GameLogic gameLogic) {
+    public PauseButton(UiAssets uiAssets, GameLogic gameLogic, Table pauseTable) {
         this.uiAssets = uiAssets;
         this.gameLogic = gameLogic;
+
+        this.pauseTable = pauseTable;
     }
 
     public void act(float delta) {
@@ -24,6 +27,7 @@ public class PauseButton extends Table {
 
         if (pause == null && uiAssets.hasSpritesheetLoaded()) {
             pause = new ImageButton(new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 224, 224, 32, 32)));
+            pause.getStyle().imageChecked = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 224, 254, 32, 32));
             pause.setTransform(true);
             pause.setOrigin(Align.center);
             pause.setScale(3);
@@ -32,6 +36,8 @@ public class PauseButton extends Table {
                   @Override
                   public void clicked(InputEvent event, float x, float y) {
                       gameLogic.setPaused(pause.isChecked());
+                      pauseTable.setVisible(gameLogic.getPaused());
+
                   }
               });
             add(pause);

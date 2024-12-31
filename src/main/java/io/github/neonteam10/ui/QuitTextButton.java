@@ -1,11 +1,15 @@
 package io.github.neonteam10.ui;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Null;
 import io.github.neonteam10.GameLogic;
 
 public class QuitTextButton extends Table {
@@ -33,7 +37,14 @@ public class QuitTextButton extends Table {
             quitButton.setScale(2);
             quitButton.setTransform(true);
 
-            add(quitButton).align(Align.center);
+            quitButton.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    Gdx.app.exit();
+                }
+            });
+
+            add(quitButton);
         }
     }
 }

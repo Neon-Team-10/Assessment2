@@ -36,24 +36,22 @@ public class UiStage extends Stage {
         topLeftTable.add(new CurrentEventBox(assets, gameLogic)).padTop(16.0f);
 
         Table pauseTable = new Table();
-        pauseTable.align(Align.center);
+        pauseTable.setOrigin(Align.right);
         pauseTable.add(new RestartTextButton(assets, gameLogic)).pad(25.f);
         pauseTable.row();
         pauseTable.add(new QuitTextButton(assets, gameLogic)).pad(25.0f);
-        pauseTable.setVisible(gameLogic.getPaused());
 
         Table topRightTable = new Table();
-        topRightTable.add(new PauseButton(assets, gameLogic));
+        topRightTable.add(new PauseButton(assets, gameLogic, pauseTable));
 
         // Create the building toolbar anchored to the bottom center.
         Stack buildingToolbar = new BuildingToolbar(assets, gameLogic);
         mainTable.add(topLeftTable).top().left().pad(25.0f);
-        mainTable.add(pauseTable).expand().pad(25.0f);
-        mainTable.add(topRightTable).top().right().pad(25.0f).minWidth(topLeftTable.getWidth());
+        mainTable.add(pauseTable).expand();
+        mainTable.add(topRightTable).top().right().pad(25.0f);
         mainTable.row();
         mainTable.add(buildingToolbar).bottom().center().padBottom(5.0f).colspan(3);
 
-        mainTable.debug();
 
 
 
