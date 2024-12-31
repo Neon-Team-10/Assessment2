@@ -6,12 +6,12 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import io.github.neonteam10.GameLogic;
 
 
 public class RestartTextButton extends Table {
-    private ImageButton restartButton;
-    private Label textLabel;
+    private ImageTextButton restartButton;
     private final UiAssets uiAssets;
     private final GameLogic gameLogic;
 
@@ -21,11 +21,21 @@ public class RestartTextButton extends Table {
     }
     public void act(float delta) {
         if (restartButton == null && uiAssets.hasSpritesheetLoaded() && uiAssets.hasFontsLoaded()) {
-            Label.LabelStyle labelStyle = new Label.LabelStyle(uiAssets.getLargeFont(), Color.BLACK);
-            textLabel = new Label("Restart", labelStyle);
-            add(restartButton);
-            ImageTextButton.ImageTextButtonStyle style = new ImageTextButton.ImageTextButtonStyle(
-                    new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 288, 166, 96, 32)));
+            ImageTextButton.ImageTextButtonStyle style = new ImageTextButton.ImageTextButtonStyle();
+
+            style.up = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 288, 166, 64, 18));
+            style.over = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 288, 198, 64, 18));
+            style.down = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 288, 198, 64, 18));
+
+            style.font = uiAssets.getSmallFont();
+            style.fontColor = Color.BLACK;
+
+            restartButton = new ImageTextButton("Restart", style);
+            restartButton.align(Align.center);
+            restartButton.setScale(2);
+            restartButton.setTransform(true);
+
+            add(restartButton).align(Align.center);
         }
     }
 }

@@ -236,6 +236,10 @@ public class GameLogic {
         return this.paused;
     }
 
+    public boolean getPaused() {
+        return this.paused;
+    }
+
     public void restart() {
 
     }

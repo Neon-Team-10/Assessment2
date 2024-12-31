@@ -2,6 +2,7 @@ package io.github.neonteam10.ui;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -20,13 +21,12 @@ public class UiStage extends Stage {
         assets = new UiAssets(assetManager);
 
         // Create a table to fill the whole screen.
-        var mainTable = new Table();
-
+        Table mainTable = new Table();
         mainTable.setFillParent(true);
         addActor(mainTable);
 
         // Create a table anchored to the top left for the timer and stats.
-        var topLeftTable = new Table();
+        Table topLeftTable = new Table();
         topLeftTable.add(new GameTimer(assets, gameLogic));
         topLeftTable.row();
         topLeftTable.add(new BuildingStatsBox(assets, gameLogic));
@@ -35,19 +35,26 @@ public class UiStage extends Stage {
         topLeftTable.row();
         topLeftTable.add(new CurrentEventBox(assets, gameLogic)).padTop(16.0f);
 
+        Table pauseTable = new Table();
+        pauseTable.align(Align.center);
+        pauseTable.add(new RestartTextButton(assets, gameLogic)).pad(25.f);
+        pauseTable.row();
+        pauseTable.add(new QuitTextButton(assets, gameLogic)).pad(25.0f);
+        pauseTable.setVisible(gameLogic.getPaused());
+
         Table topRightTable = new Table();
         topRightTable.add(new PauseButton(assets, gameLogic));
 
         // Create the building toolbar anchored to the bottom center.
-        var buildingToolbar = new BuildingToolbar(assets, gameLogic);
-        mainTable.add(topLeftTable).expand().top().left().padLeft(25.0f);
-        mainTable.add(topRightTable).expand().top().right().pad(25.0f);
+        Stack buildingToolbar = new BuildingToolbar(assets, gameLogic);
+        mainTable.add(topLeftTable).top().left().pad(25.0f);
+        mainTable.add(pauseTable).expand().pad(25.0f);
+        mainTable.add(topRightTable).top().right().pad(25.0f).minWidth(topLeftTable.getWidth());
         mainTable.row();
         mainTable.add(buildingToolbar).bottom().center().padBottom(5.0f).colspan(3);
 
+        mainTable.debug();
 
-        //Pause table
-        Table pauseTable = new Table();
 
 
     }
