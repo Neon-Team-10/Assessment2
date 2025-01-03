@@ -4,13 +4,13 @@ import io.github.neonteam10.map.GameMap;
 import io.github.neonteam10.GameLogic;
 
 
-public class RecreationAchievement extends GameAchievement {
+public class AccommodationAchievement extends GameAchievement {
 
     private final GameMap gameMap;
     private final GameLogic gameLogic;
 
-    public RecreationAchievement (GameLogic gamelogic){
-        super("Fun!","EnterPathHere","Place five Recreation buildings.");
+    public AccommodationAchievement (GameLogic gamelogic){
+        super("House Party!","EnterPathHere","Place five Accommodation buildings.");
         TiledMap tiledMap = new TiledMap();
         this.gameMap= new GameMap(tiledMap);
         this.gameLogic = gamelogic;
@@ -18,7 +18,7 @@ public class RecreationAchievement extends GameAchievement {
 
     @Override
     protected boolean getUnlockStatus(){
-        return gameMap.getBuildingCount(gameLogic.findPrefab("Recreation")) >= 5;
+        return gameMap.getBuildingCount(gameLogic.findPrefab("Accommodation")) >= 5;
     }
 
     @Override
