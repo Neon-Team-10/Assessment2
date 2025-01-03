@@ -72,7 +72,7 @@ public class MapNode {
     }
 
     public int getDistance(MapNode targetNode) {
-        if (targetNode.buildingNode == null) {
+        if (targetNode.buildingNode == null || buildingNode == null) {
             return Integer.MAX_VALUE;
         }
         return buildingNode.connections.get(targetNode.buildingNode);
