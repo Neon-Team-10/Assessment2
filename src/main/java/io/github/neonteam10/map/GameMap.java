@@ -59,7 +59,7 @@ public class GameMap {
         availablePrefabs = new ArrayList<>();
         for (var layer : tiledMap.getLayers()) {
             if (layer.getName().startsWith("Prefab: ")) {
-                // Extract prefab name, e.g. Accomodation.
+                // Extract prefab name, e.g. Accommodation.
                 var prefabName = layer.getName().substring("Prefab: ".length());
                 availablePrefabs.add(new BuildingPrefab(prefabName, (TiledMapTileLayer) layer));
             }
@@ -112,7 +112,7 @@ public class GameMap {
      * @param y      the y coordinate in world space
      * @see #canPlaceBuilding
      */
-    private void placeBuilding(BuildingPrefab prefab, int x, int y) {
+    public void placeBuilding(BuildingPrefab prefab, int x, int y) {
         for (int prefabX = 0; prefabX < prefab.getWidth(); prefabX++) {
             for (int prefabY = 0; prefabY < prefab.getHeight(); prefabY++) {
                 int mapX = x + prefabX;
