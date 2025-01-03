@@ -54,7 +54,7 @@ public class GameLogic {
      * @param name the prefab name
      * @return a {@link BuildingPrefab}
      */
-    public BuildingPrefab findPrefab(String name) {
+    private BuildingPrefab findPrefab(String name) {
         for (var prefab : gameMap.getAvailablePrefabs()) {
             if (prefab.getName().equals(name)) {
                 return prefab;
