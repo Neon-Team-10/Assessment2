@@ -19,7 +19,7 @@ import io.github.neonteam10.ui.UiStage;
  */
 public class GameScreen extends ScreenAdapter {
     private final AssetManager assetManager;
-    private final CursorManager cursorManager;
+    public final CursorManager cursorManager;
     private final SpriteBatch batch;
     private final CameraController cameraController;
     private final GameLogic gameLogic;
@@ -27,14 +27,16 @@ public class GameScreen extends ScreenAdapter {
     private GameMap map;
     private GameMapInput mapInput;
     private MapRenderer mapRenderer;
+    private UniSimGame uniSimGame;
 
-    public GameScreen(AssetManager assetManager, CursorManager cursorManager) {
+    public GameScreen(UniSimGame uniSimGame, AssetManager assetManager, CursorManager cursorManager) {
         this.assetManager = assetManager;
         this.cursorManager = cursorManager;
         batch = new SpriteBatch();
         cameraController = new CameraController();
-        gameLogic = new GameLogic();
+        gameLogic = new GameLogic(this);
         uiStage = new UiStage(assetManager, gameLogic);
+        this.uniSimGame = uniSimGame;
 
         // Create an input multiplexer to chain together our input adapters.
         // Add the UI stage first, then the camera controller.
@@ -145,5 +147,9 @@ public class GameScreen extends ScreenAdapter {
     public void dispose() {
         batch.dispose();
         uiStage.dispose();
+    }
+
+    public void restart() {
+        uniSimGame.create();
     }
 }
