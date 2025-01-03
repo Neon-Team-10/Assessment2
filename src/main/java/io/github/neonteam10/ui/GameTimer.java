@@ -16,7 +16,7 @@ import io.github.neonteam10.GameLogic;
 public class GameTimer extends Table {
     // Multiplier for the background image size.
     // TODO: Make configurable in settings.
-    private static final float IMAGE_SCALE = 3.0f;
+    public static final float IMAGE_SCALE = 3.0f;
 
     private final UiAssets uiAssets;
     private final GameLogic gameLogic;

@@ -1,13 +1,16 @@
 package io.github.neonteam10.ui;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import io.github.neonteam10.GameLogic;
 
 /**
@@ -17,7 +20,7 @@ public class SatisfactionMeter extends Table {
     private final UiAssets uiAssets;
     private final GameLogic gameLogic;
     private Image backgroundImage;
-    private TextureRegion solidColour;
+    private Label satisfactionLabel;
 
     public SatisfactionMeter(UiAssets uiAssets, GameLogic gameLogic) {
         this.uiAssets = uiAssets;
@@ -27,22 +30,32 @@ public class SatisfactionMeter extends Table {
     @Override
     public void act(float delta) {
         super.act(delta);
-        if (backgroundImage == null && uiAssets.hasSpritesheetLoaded()) {
-            var textureRegion = new TextureRegion(uiAssets.getSpritesheet(), 544, 204, 64, 8);
-            backgroundImage = new Image(textureRegion);
-            solidColour = new TextureRegion(uiAssets.getSpritesheet(), 512, 176, 1, 1);
 
-            add(backgroundImage).size(192.0f, 32.0f);
+        if (satisfactionLabel == null && uiAssets.hasFontsLoaded()) {
+            var labelStyle = new Label.LabelStyle(uiAssets.getLargeFont(), Color.BLACK);
+            satisfactionLabel = new Label("000000", labelStyle);
+            satisfactionLabel.setAlignment(Align.center);
         }
+
+        // Create background image once spritesheet has been loaded.
+        if (backgroundImage == null && uiAssets.hasSpritesheetLoaded()) {
+            var textureRegion = new TextureRegion(uiAssets.getSpritesheet(), 290, 166, 62, 18);
+            backgroundImage = new Image(textureRegion);
+            add(backgroundImage).size(textureRegion.getRegionWidth() * GameTimer.IMAGE_SCALE,
+                    textureRegion.getRegionHeight() * GameTimer.IMAGE_SCALE);
+            row();
+            add(satisfactionLabel).padTop(-48.0f * 1.25f);
+        }
+
+
+
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
-        if (backgroundImage != null) {
-            var coords = backgroundImage.localToScreenCoordinates(new Vector2(0, 0));
-            float width = MathUtils.lerp(0.0f, 176.0f, gameLogic.getSatisfaction());
-            batch.draw(solidColour, coords.x + 9, Gdx.graphics.getHeight() - coords.y + 13, width, 8.0f);
+        if (satisfactionLabel != null) {
+            satisfactionLabel.setText(String.format("%06d", ((int) (gameLogic.getSatisfaction()*1000))));
         }
     }
 }

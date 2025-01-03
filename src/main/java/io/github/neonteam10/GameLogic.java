@@ -21,11 +21,14 @@ public class GameLogic {
     private float remainingTime;
     private float nextBuildingTime;
     private boolean gameOver;
+    private boolean paused;
 
     // Satisfaction.
     private float satisfaction;
     private float newBuildingSatisfaction;
     private int previousBuildingCount;
+
+    GameScreen screen;
 
     // Events.
     private GameEvent currentEvent;
@@ -33,10 +36,12 @@ public class GameLogic {
     private float checkEventTimer;
     private float eventDurationTimer;
 
-    public GameLogic() {
+    public GameLogic(GameScreen screen) {
+        this.screen = screen;
         remainingTime = TOTAL_GAME_TIME;
         nextBuildingTime = 0.0f;
         currentEvent = GameEvent.NONE;
+        paused = true;
     }
 
     public void setMap(GameMap gameMap) {
@@ -69,6 +74,7 @@ public class GameLogic {
         var canteenPrefab = findPrefab("Canteen");
         var recreationPrefab = findPrefab("Recreation");
         var studyPrefab = findPrefab("Study");
+        var roadPrefab = findPrefab("Road");
 
         // Work out the number of students based on how many accommodation buildings there are.
         int studentCount = gameMap.getBuildingCount(accommodationPrefab) * 25;
@@ -129,7 +135,9 @@ public class GameLogic {
         }
 
         // Update timers.
-        remainingTime -= deltaTime;
+        if (!paused) {
+            remainingTime -= deltaTime;
+        }
         if (remainingTime < 0.0f) {
             gameOver = true;
         }
@@ -225,4 +233,18 @@ public class GameLogic {
     public float getEventDurationTimer() {
         return eventDurationTimer;
     }
+
+    public boolean setPaused(boolean paused) {
+        this.paused = paused;
+        return this.paused;
+    }
+
+    public boolean getPaused() {
+        return this.paused;
+    }
+
+    public void restart() {
+        screen.restart();
+    }
+
 }

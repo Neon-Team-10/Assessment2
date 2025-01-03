@@ -2,6 +2,7 @@ package io.github.neonteam10.map;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
+import io.github.neonteam10.graphs.MapGraph;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,8 @@ public class GameMap {
     private final boolean[][] usableTiles;
     private final List<BuildingPrefab> availablePrefabs;
     private final List<Building> placedBuildings;
+
+    private final MapGraph buildingGraph;
 
     public GameMap(TiledMap tiledMap) {
         this.tiledMap = tiledMap;
@@ -69,6 +72,7 @@ public class GameMap {
         }
 
         placedBuildings = new ArrayList<>();
+        buildingGraph = new MapGraph();
     }
 
     /**
@@ -117,7 +121,15 @@ public class GameMap {
                 usableTiles[mapX][mapY] = false;
             }
         }
-        placedBuildings.add(new Building(prefab, x, y));
+        Building newBuilding;
+        if (prefab.getName().equals("Road")) {
+            newBuilding = new Building(prefab, x, y, true);
+        }
+        else {
+            newBuilding = new Building(prefab, x, y);
+        }
+        buildingGraph.addBuilding(newBuilding);
+        placedBuildings.add(newBuilding);
     }
 
     /**
@@ -140,7 +152,13 @@ public class GameMap {
      * @return the total building count of all prefabs
      */
     public int getTotalBuildingCount() {
-        return placedBuildings.size();
+        int count = 0;
+        for (Building building : placedBuildings) {
+            if (!(building.getRoad())) {
+                count++;
+            }
+        }
+        return count;
     }
 
     /**
