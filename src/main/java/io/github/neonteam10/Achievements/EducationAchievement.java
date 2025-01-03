@@ -9,11 +9,11 @@ public class EducationAchievement extends GameAchievement {
     private final GameMap gameMap;
     private final GameLogic gameLogic;
 
-    public EducationAchievement(GameMap gamemap, GameLogic gamelogic) {
+    public EducationAchievement(){
         super("Knowledge!","EnterPathHere","Place five educational buildings.");
         TiledMap tiledMap = new TiledMap();
-        this.gameMap= gamemap;
-        this.gameLogic = gamelogic;
+        this.gameMap= new GameMap(tiledMap);
+        this.gameLogic = new GameLogic();
 
     }
     @Override

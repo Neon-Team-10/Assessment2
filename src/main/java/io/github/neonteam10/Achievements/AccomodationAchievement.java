@@ -1,4 +1,4 @@
 package io.github.neonteam10.Achievements;
 
-public class ScoreAchievement {
+public class AccomodationAchievement {
 }
