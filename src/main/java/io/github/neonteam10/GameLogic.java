@@ -22,11 +22,13 @@ public class GameLogic {
     private float nextBuildingTime;
     private boolean gameOver;
     private boolean paused;
+    private boolean started;
 
     // Satisfaction.
     private float satisfaction;
     private float newBuildingSatisfaction;
     private int previousBuildingCount;
+    private int studentCount;
 
     GameScreen screen;
 
@@ -42,6 +44,9 @@ public class GameLogic {
         nextBuildingTime = 0.0f;
         currentEvent = GameEvent.NONE;
         paused = true;
+        started = false;
+        studentCount = 0;
+        maximumAllowedBuildings = 1;
     }
 
     public void setMap(GameMap gameMap) {
@@ -63,6 +68,13 @@ public class GameLogic {
         return null;
     }
 
+    private float getCurrentGainRate() {
+        if (studentCount == 0) {
+            return 0.0f;
+        }
+        return gameMap.buildingGraph.getGainScore();
+    }
+
     /**
      * Continuously updates the student satisfaction.
      *
@@ -77,7 +89,7 @@ public class GameLogic {
         var roadPrefab = findPrefab("Road");
 
         // Work out the number of students based on how many accommodation buildings there are.
-        int studentCount = gameMap.getBuildingCount(accommodationPrefab) * 25;
+        studentCount = gameMap.getBuildingCount(accommodationPrefab) * 25;
 
         // Store satisfaction to add for new buildings.
         int newBuildingCount = gameMap.getTotalBuildingCount() - previousBuildingCount;
@@ -87,41 +99,43 @@ public class GameLogic {
         previousBuildingCount = gameMap.getTotalBuildingCount();
 
         // Slowly apply new building satisfaction.
-        float newBuildingFactor = newBuildingSatisfaction * 2.0f * deltaTime;
-        satisfaction += newBuildingFactor;
-        newBuildingSatisfaction -= newBuildingFactor;
-        newBuildingSatisfaction = Math.max(newBuildingSatisfaction, 0.0f);
+        if (!(paused)) {
+            float newBuildingFactor = newBuildingSatisfaction * 2.0f * deltaTime;
+            satisfaction += newBuildingFactor;
+            newBuildingSatisfaction -= newBuildingFactor;
+            newBuildingSatisfaction = Math.max(newBuildingSatisfaction, 0.0f);
 
-        // Apply some satisfaction based on student count.
-        satisfaction += Math.min(studentCount / 25000.0f, 0.01f) * deltaTime;
+            // Apply some satisfaction based on student count.
+            //satisfaction += Math.min(studentCount / 25000.0f, 0.01f) * deltaTime;
 
-        // Decrease satisfaction if there isn't enough canteen or study buildings for all the students. Each canteen
-        // can support 100 students and each study building can support 75 students. Use exponential formulas so a
-        // deficit can not just be offset by placing lots of recreation buildings.
-        var canteenDeficit = studentCount - gameMap.getBuildingCount(canteenPrefab) * 100;
-        var studyDeficit = studentCount - gameMap.getBuildingCount(studyPrefab) * 75;
-        if (canteenDeficit > 0) {
-            satisfaction -= ((float) Math.pow(2.0f, canteenDeficit / 12.0f) / 175.0f) * deltaTime * 0.5f;
+            // Decrease satisfaction if there isn't enough canteen or study buildings for all the students. Each canteen
+            // can support 100 students and each study building can support 75 students. Use exponential formulas so a
+            // deficit can not just be offset by placing lots of recreation buildings.
+            var canteenDeficit = studentCount - gameMap.getBuildingCount(canteenPrefab) * 100;
+            var studyDeficit = studentCount - gameMap.getBuildingCount(studyPrefab) * 75;
+            if (canteenDeficit > 0) {
+                satisfaction -= ((float) Math.pow(2.0f, canteenDeficit / 12.0f) / 175.0f) * deltaTime * 0.5f;
+            }
+            if (studyDeficit > 0) {
+                float factor = currentEvent == GameEvent.STRIKE ? 1.0f : 0.5f;
+                satisfaction -= ((float) Math.pow(2.0f, studyDeficit / 15.0f) / 75.0f) * deltaTime * factor;
+            }
+
+            // Decay satisfaction based on a rate determined by the amount of recreation buildings.
+            float gainRate = getCurrentGainRate();
+            //gainRate -= gameMap.getBuildingCount(recreationPrefab) / 500.0f;
+            satisfaction += gainRate * deltaTime;
+
+            // Handle rain and roses events.
+            if (currentEvent == GameEvent.RAIN) {
+                satisfaction -= 0.02f * deltaTime;
+            } else if (currentEvent == GameEvent.ROSES) {
+                satisfaction += 0.02f * deltaTime;
+            }
+
+            // Clamp satisfaction between 0 and 1.
+            //satisfaction = MathUtils.clamp(satisfaction, 0.0f, 1.0f);
         }
-        if (studyDeficit > 0) {
-            float factor = currentEvent == GameEvent.STRIKE ? 1.0f : 0.5f;
-            satisfaction -= ((float) Math.pow(2.0f, studyDeficit / 15.0f) / 75.0f) * deltaTime * factor;
-        }
-
-        // Decay satisfaction based on a rate determined by the amount of recreation buildings.
-        float decayRate = 0.035f;
-        decayRate -= gameMap.getBuildingCount(recreationPrefab) / 500.0f;
-        satisfaction -= Math.max(decayRate, 0.015f) * deltaTime;
-
-        // Handle rain and roses events.
-        if (currentEvent == GameEvent.RAIN) {
-            satisfaction -= 0.02f * deltaTime;
-        } else if (currentEvent == GameEvent.ROSES) {
-            satisfaction += 0.02f * deltaTime;
-        }
-
-        // Clamp satisfaction between 0 and 1.
-        satisfaction = MathUtils.clamp(satisfaction, 0.0f, 1.0f);
     }
 
     /**
@@ -141,7 +155,9 @@ public class GameLogic {
         if (remainingTime < 0.0f) {
             gameOver = true;
         }
-        nextBuildingTime -= deltaTime;
+        if (started) {
+            nextBuildingTime -= deltaTime;
+        }
         if (nextBuildingTime < 0.0f) {
             // User can place another building.
             maximumAllowedBuildings++;
@@ -236,6 +252,9 @@ public class GameLogic {
 
     public boolean setPaused(boolean paused) {
         this.paused = paused;
+        if (!(started) && !(paused)){
+            started = true;
+        }
         return this.paused;
     }
 

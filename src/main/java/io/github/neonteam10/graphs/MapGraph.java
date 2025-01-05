@@ -8,6 +8,7 @@ import java.util.*;
  * This graph is purely for literal connections between map nodes (A building can only be connected to roads in this graph)
  */
 public class MapGraph {
+    final float BUILDING_GAIN_VALUE = 0.1f;
     List<MapNode> nodes;
     BuildingGraph buildingGraph;
     public MapGraph() {
@@ -105,7 +106,10 @@ public class MapGraph {
                 }
             }
         }
+        buildingGraph.calculateAccommodationQualityScore();
+    }
 
-
+    public float getGainScore() {
+        return BUILDING_GAIN_VALUE * buildingGraph.nodes.size() + buildingGraph.accommodationQualityScore;
     }
 }
