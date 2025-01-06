@@ -20,7 +20,7 @@ import io.github.neonteam10.GameScreen;
 import io.github.neonteam10.UniSimGame;
 
 
-public class RestartTextButton extends Table {
+public class RestartTextButton extends Table{
     private ImageTextButton restartButton;
     private final UiAssets uiAssets;
     private final GameLogic gameLogic;

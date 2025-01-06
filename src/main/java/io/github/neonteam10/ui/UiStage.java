@@ -52,9 +52,7 @@ public class UiStage extends Stage {
         mainTable.row();
         mainTable.add(buildingToolbar).bottom().center().padBottom(5.0f).colspan(3);
 
-
-
-
+        Table endGameTable = new EndGameUI(assets, gameLogic);
     }
 
     @Override
