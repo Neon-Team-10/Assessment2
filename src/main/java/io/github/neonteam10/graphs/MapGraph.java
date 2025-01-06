@@ -46,7 +46,7 @@ public class MapGraph {
      * @param node2 The node to find if connected to node 1
      * @return A boolean representing whether the two nodes are connected.
      */
-    private boolean connected(MapNode node1, MapNode node2) {
+    public boolean connected(MapNode node1, MapNode node2) {
         if (node1 == node2) {
             return false;
         }
