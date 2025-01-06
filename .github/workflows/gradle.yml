@@ -36,6 +36,16 @@ jobs:
     - name: Build with Gradle Wrapper
       run: ./gradlew build
 
-    # Run JUnit tests
-    - name: Run JUnit test
-      run: ./gradlew test
+    - name: Test Summary
+      uses: test-summary/action@v2
+      with:
+        paths: "test/results/**/TEST-*.xml"
+        output: test-summary.md
+      if: always()
+
+    - name: Upload test summary
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-summary
+        path: test-summary.md
+      if: always()
