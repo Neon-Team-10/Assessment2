@@ -10,7 +10,7 @@ import io.github.neonteam10.map.GameMap;
  * satisfaction and score.
  */
 public class GameLogic {
-    private static final float TOTAL_GAME_TIME = 5.0f * 60.0f;
+    private static final float TOTAL_GAME_TIME = 0.5f * 60.0f;
     private static final float BUILDING_TIME = 20.0f;
 
     private GameMap gameMap;
@@ -38,6 +38,8 @@ public class GameLogic {
     private float checkEventTimer;
     private float eventDurationTimer;
 
+    Leaderboard leaderboard;
+
     public GameLogic(GameScreen screen) {
         this.screen = screen;
         remainingTime = TOTAL_GAME_TIME;
@@ -47,6 +49,7 @@ public class GameLogic {
         started = false;
         studentCount = 0;
         maximumAllowedBuildings = 1;
+        leaderboard = new Leaderboard("leaderboard.file");
     }
 
     public void setMap(GameMap gameMap) {
@@ -99,43 +102,41 @@ public class GameLogic {
         previousBuildingCount = gameMap.getTotalBuildingCount();
 
         // Slowly apply new building satisfaction.
-        if (!(paused)) {
-            float newBuildingFactor = newBuildingSatisfaction * 2.0f * deltaTime;
-            satisfaction += newBuildingFactor;
-            newBuildingSatisfaction -= newBuildingFactor;
-            newBuildingSatisfaction = Math.max(newBuildingSatisfaction, 0.0f);
+        float newBuildingFactor = newBuildingSatisfaction * 2.0f * deltaTime;
+        satisfaction += newBuildingFactor;
+        newBuildingSatisfaction -= newBuildingFactor;
+        newBuildingSatisfaction = Math.max(newBuildingSatisfaction, 0.0f);
 
-            // Apply some satisfaction based on student count.
-            //satisfaction += Math.min(studentCount / 25000.0f, 0.01f) * deltaTime;
+        // Apply some satisfaction based on student count.
+        //satisfaction += Math.min(studentCount / 25000.0f, 0.01f) * deltaTime;
 
-            // Decrease satisfaction if there isn't enough canteen or study buildings for all the students. Each canteen
-            // can support 100 students and each study building can support 75 students. Use exponential formulas so a
-            // deficit can not just be offset by placing lots of recreation buildings.
-            var canteenDeficit = studentCount - gameMap.getBuildingCount(canteenPrefab) * 100;
-            var studyDeficit = studentCount - gameMap.getBuildingCount(studyPrefab) * 75;
-            if (canteenDeficit > 0) {
-                satisfaction -= ((float) Math.pow(2.0f, canteenDeficit / 12.0f) / 175.0f) * deltaTime * 0.5f;
-            }
-            if (studyDeficit > 0) {
-                float factor = currentEvent == GameEvent.STRIKE ? 1.0f : 0.5f;
-                satisfaction -= ((float) Math.pow(2.0f, studyDeficit / 15.0f) / 75.0f) * deltaTime * factor;
-            }
-
-            // Decay satisfaction based on a rate determined by the amount of recreation buildings.
-            float gainRate = getCurrentGainRate();
-            //gainRate -= gameMap.getBuildingCount(recreationPrefab) / 500.0f;
-            satisfaction += gainRate * deltaTime;
-
-            // Handle rain and roses events.
-            if (currentEvent == GameEvent.RAIN) {
-                satisfaction -= 0.02f * deltaTime;
-            } else if (currentEvent == GameEvent.ROSES) {
-                satisfaction += 0.02f * deltaTime;
-            }
-
-            // Clamp satisfaction between 0 and 1.
-            //satisfaction = MathUtils.clamp(satisfaction, 0.0f, 1.0f);
+        // Decrease satisfaction if there isn't enough canteen or study buildings for all the students. Each canteen
+        // can support 100 students and each study building can support 75 students. Use exponential formulas so a
+        // deficit can not just be offset by placing lots of recreation buildings.
+        var canteenDeficit = studentCount - gameMap.getBuildingCount(canteenPrefab) * 100;
+        var studyDeficit = studentCount - gameMap.getBuildingCount(studyPrefab) * 75;
+        if (canteenDeficit > 0) {
+            satisfaction -= ((float) Math.pow(2.0f, canteenDeficit / 12.0f) / 175.0f) * deltaTime * 0.5f;
         }
+        if (studyDeficit > 0) {
+            float factor = currentEvent == GameEvent.STRIKE ? 1.0f : 0.5f;
+            satisfaction -= ((float) Math.pow(2.0f, studyDeficit / 15.0f) / 75.0f) * deltaTime * factor;
+        }
+
+        // Decay satisfaction based on a rate determined by the amount of recreation buildings.
+        float gainRate = getCurrentGainRate();
+        //gainRate -= gameMap.getBuildingCount(recreationPrefab) / 500.0f;
+        satisfaction += gainRate * deltaTime;
+
+        // Handle rain and roses events.
+        if (currentEvent == GameEvent.RAIN) {
+            satisfaction -= 0.02f * deltaTime;
+        } else if (currentEvent == GameEvent.ROSES) {
+            satisfaction += 0.02f * deltaTime;
+        }
+
+        // Clamp satisfaction between 0 and 1.
+        //satisfaction = MathUtils.clamp(satisfaction, 0.0f, 1.0f);
     }
 
     /**
@@ -165,29 +166,34 @@ public class GameLogic {
         }
 
         // Update satisfaction.
-        updateSatisfaction(deltaTime);
-
-        // Tick event duration timer.
-        if (currentEvent != GameEvent.NONE) {
-            eventDurationTimer -= deltaTime;
-        }
-        if (eventDurationTimer < 0.0f) {
-            currentEvent = GameEvent.NONE;
-        }
-        if (currentEvent != GameEvent.NONE) {
-            return;
+        if (!paused && !gameOver) {
+            updateSatisfaction(deltaTime);
         }
 
-        // Generate a random number every 2 seconds to see if we should start an event. Bias the random number slightly
-        // to prevent events from happening to close to each other.
-        nextEventProbability += deltaTime * 0.01f;
-        checkEventTimer += deltaTime;
-        if (checkEventTimer > 2.0f) {
-            checkEventTimer = 0.0f;
-            if (Math.min(MathUtils.random() + 0.1f, 1.0f) < nextEventProbability) {
-                nextEventProbability = 0;
-                currentEvent = GameEvent.values()[MathUtils.random(GameEvent.values().length - 1)];
-                eventDurationTimer = MathUtils.random(15.0f, 45.0f);
+        if (!paused) {
+            // Tick event duration timer.
+            if (currentEvent != GameEvent.NONE) {
+                eventDurationTimer -= deltaTime;
+            }
+            if (eventDurationTimer < 0.0f) {
+                currentEvent = GameEvent.NONE;
+            }
+            if (currentEvent != GameEvent.NONE) {
+                return;
+            }
+
+
+            // Generate a random number every 2 seconds to see if we should start an event. Bias the random number slightly
+            // to prevent events from happening to close to each other.
+            nextEventProbability += deltaTime * 0.01f;
+            checkEventTimer += deltaTime;
+            if (checkEventTimer > 2.0f) {
+                checkEventTimer = 0.0f;
+                if (Math.min(MathUtils.random() + 0.1f, 1.0f) < nextEventProbability) {
+                    nextEventProbability = 0;
+                    currentEvent = GameEvent.values()[MathUtils.random(GameEvent.values().length - 1)];
+                    eventDurationTimer = MathUtils.random(15.0f, 45.0f);
+                }
             }
         }
     }
