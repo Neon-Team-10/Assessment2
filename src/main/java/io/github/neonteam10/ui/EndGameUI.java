@@ -35,7 +35,6 @@ public class EndGameUI extends Table {
             if (scoreBoardButton == null) {
                 scoreBoardButton = new ScoreBoardButton(assets, gameLogic);
             }
-
             if (scoreBoardButton != null && restartTextButton != null && quitTextButton != null) {
 
             }

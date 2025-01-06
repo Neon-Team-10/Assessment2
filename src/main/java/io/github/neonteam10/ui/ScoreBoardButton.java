@@ -1,6 +1,5 @@
 package io.github.neonteam10.ui;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import io.github.neonteam10.GameLogic;
 
