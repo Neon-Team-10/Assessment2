@@ -26,8 +26,8 @@ public class PauseButton extends Table {
         super.act(delta);
 
         if (pause == null && uiAssets.hasSpritesheetLoaded()) {
-            pause = new ImageButton(new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 224, 224, 32, 32)));
-            pause.getStyle().imageChecked = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 224, 254, 32, 32));
+            pause = new ImageButton(new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 224, 254, 32, 32)));
+            pause.getStyle().imageChecked = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 224, 224, 32, 32));
             pause.setTransform(true);
             pause.setOrigin(Align.center);
             pause.setScale(3);
