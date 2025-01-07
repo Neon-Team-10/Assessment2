@@ -1,8 +1,7 @@
 package io.github.neonteam10;
 
 import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Leaderboard {
     Map<String, Integer> scores;
@@ -10,6 +9,7 @@ public class Leaderboard {
     public Leaderboard(String filename) {
         this.filename = filename;
         readLeaderboard();
+        System.out.println(getTopFive().toString());
     }
 
     // Typical usage after user selected:
@@ -50,6 +50,17 @@ public class Leaderboard {
 
     public void addEntry(String username, int score) {
         scores.put(username, score);
+    }
+
+    public List<Map.Entry<String, Integer>> getTopFive() {
+        Set<Map.Entry<String, Integer>> entries = scores.entrySet();
+        List<Map.Entry<String, Integer>> list = new ArrayList<>(entries);
+        list.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+        List<Map.Entry<String, Integer>> topFive = new ArrayList<>();
+        for (int i = 0; i < 5 && i < list.size(); i++) {
+            topFive.add(list.get(i));
+        }
+        return topFive;
     }
 
     @Override
