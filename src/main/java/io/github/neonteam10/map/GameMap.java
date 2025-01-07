@@ -59,7 +59,7 @@ public class GameMap {
         availablePrefabs = new ArrayList<>();
         for (var layer : tiledMap.getLayers()) {
             if (layer.getName().startsWith("Prefab: ")) {
-                // Extract prefab name, e.g. Accomodation.
+                // Extract prefab name, e.g. Accommodation.
                 var prefabName = layer.getName().substring("Prefab: ".length());
                 availablePrefabs.add(new BuildingPrefab(prefabName, (TiledMapTileLayer) layer));
             }
