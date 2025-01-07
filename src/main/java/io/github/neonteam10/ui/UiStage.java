@@ -14,11 +14,19 @@ import io.github.neonteam10.GameLogic;
  */
 public class UiStage extends Stage {
     private final UiAssets assets;
+    private final GameLogic gameLogic;
+    Table topLeftTable;
+    Table pauseTable;
+    Table topRightTable;
+    Stack buildingToolbar;
+    Table endGameTable;
+    PauseButton pauseButton;
 
     public UiStage(AssetManager assetManager, GameLogic gameLogic) {
         // The UI spans the whole screen.
         super(new ScreenViewport());
-        assets = new UiAssets(assetManager);
+        this.assets = new UiAssets(assetManager);
+        this.gameLogic = gameLogic;
 
         // Create a table to fill the whole screen.
         Stack mainStack = new Stack();
@@ -29,7 +37,7 @@ public class UiStage extends Stage {
 
 
         // Create a table anchored to the top left for the timer and stats.
-        Table topLeftTable = new Table();
+        topLeftTable = new Table();
         topLeftTable.add(new GameTimer(assets, gameLogic));
         topLeftTable.row();
         topLeftTable.add(new BuildingStatsBox(assets, gameLogic));
@@ -38,18 +46,19 @@ public class UiStage extends Stage {
         topLeftTable.row();
         topLeftTable.add(new CurrentEventBox(assets, gameLogic)).padTop(16.0f);
 
-        Table pauseTable = new Table();
-        pauseTable.setOrigin(Align.right);
-        pauseTable.center();
-        pauseTable.add(new RestartTextButton(assets, gameLogic)).pad(25.f);
+        pauseTable = new Table();
+        pauseTable.add(new PlayTextButton(assets, gameLogic)).pad(15.0f);
         pauseTable.row();
-        pauseTable.add(new QuitTextButton(assets, gameLogic)).pad(25.0f);
+        pauseTable.add(new RestartTextButton(assets, gameLogic)).pad(15.0f);
+        pauseTable.row();
+        pauseTable.add(new QuitTextButton(assets, gameLogic)).pad(15.0f);
 
-        Table topRightTable = new Table();
-        topRightTable.add(new PauseButton(assets, gameLogic, pauseTable));
+        topRightTable = new Table();
+        pauseButton = new PauseButton(assets, gameLogic, pauseTable);
+        topRightTable.add(pauseButton);
 
         // Create the building toolbar anchored to the bottom center.
-        Stack buildingToolbar = new BuildingToolbar(assets, gameLogic);
+        buildingToolbar = new BuildingToolbar(assets, gameLogic);
         mainTable.add(topLeftTable).expand().top().left().pad(25.0f);
         mainTable.add(topRightTable).expand().top().right().pad(25.0f);
         mainTable.row();
@@ -58,7 +67,7 @@ public class UiStage extends Stage {
         mainStack.add(mainTable);
         mainStack.add(pauseTable);
 
-        Table endGameTable = new EndGameUI(assets, gameLogic);
+        endGameTable = new EndGameUI(assets, gameLogic);
         mainStack.add(endGameTable);
     }
 
@@ -66,5 +75,27 @@ public class UiStage extends Stage {
     public void act(float delta) {
         super.act(delta);
         assets.update();
+    }
+
+    public void update() {
+        if (!gameLogic.getGameOver()) {
+            endGameTable.setVisible(false);
+            if (gameLogic.getPaused()) {
+                pauseTable.setVisible(true);
+                pauseButton.setChecked(true);
+            }
+            else {
+                pauseTable.setVisible(false);
+                pauseButton.setChecked(false);
+            }
+        }
+        else {
+            topRightTable.setVisible(false);
+            topLeftTable.setVisible(false);
+            buildingToolbar.setVisible(false);
+            pauseTable.setVisible(false);
+            endGameTable.setVisible(true);
+        }
+
     }
 }
