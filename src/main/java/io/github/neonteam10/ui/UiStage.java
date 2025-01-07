@@ -21,9 +21,12 @@ public class UiStage extends Stage {
         assets = new UiAssets(assetManager);
 
         // Create a table to fill the whole screen.
+        Stack mainStack = new Stack();
         Table mainTable = new Table();
+        mainStack.setFillParent(true);
         mainTable.setFillParent(true);
-        addActor(mainTable);
+        addActor(mainStack);
+
 
         // Create a table anchored to the top left for the timer and stats.
         Table topLeftTable = new Table();
@@ -37,6 +40,7 @@ public class UiStage extends Stage {
 
         Table pauseTable = new Table();
         pauseTable.setOrigin(Align.right);
+        pauseTable.center();
         pauseTable.add(new RestartTextButton(assets, gameLogic)).pad(25.f);
         pauseTable.row();
         pauseTable.add(new QuitTextButton(assets, gameLogic)).pad(25.0f);
@@ -46,13 +50,16 @@ public class UiStage extends Stage {
 
         // Create the building toolbar anchored to the bottom center.
         Stack buildingToolbar = new BuildingToolbar(assets, gameLogic);
-        mainTable.add(topLeftTable).top().left().pad(25.0f);
-        mainTable.add(pauseTable).expand();
-        mainTable.add(topRightTable).top().right().pad(25.0f);
+        mainTable.add(topLeftTable).expand().top().left().pad(25.0f);
+        mainTable.add(topRightTable).expand().top().right().pad(25.0f);
         mainTable.row();
         mainTable.add(buildingToolbar).bottom().center().padBottom(5.0f).colspan(3);
 
+        mainStack.add(mainTable);
+        mainStack.add(pauseTable);
+
         Table endGameTable = new EndGameUI(assets, gameLogic);
+        mainStack.add(endGameTable);
     }
 
     @Override

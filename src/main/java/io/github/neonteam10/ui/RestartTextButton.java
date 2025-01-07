@@ -33,17 +33,14 @@ public class RestartTextButton extends Table{
         if (restartButton == null && uiAssets.hasSpritesheetLoaded() && uiAssets.hasFontsLoaded()) {
             ImageTextButton.ImageTextButtonStyle style = new ImageTextButton.ImageTextButtonStyle();
 
-            style.up = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 288, 166, 64, 18));
-            style.over = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 288, 198, 64, 18));
-            style.down = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 288, 198, 64, 18));
+            style.up = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 288, 166, 64, 20));
+            style.over = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 288, 198, 64, 20));
+            style.down = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 288, 198, 64, 20));
 
             style.font = uiAssets.getSmallFont();
             style.fontColor = Color.BLACK;
 
             restartButton = new ImageTextButton("Restart", style);
-            restartButton.align(Align.center);
-            restartButton.setScale(2);
-            restartButton.setTransform(true);
 
             restartButton.addListener(new ClickListener() {
                 @Override
@@ -52,7 +49,7 @@ public class RestartTextButton extends Table{
                 }
             });
 
-            add(restartButton);
+            add(restartButton).size(64 * 3, 18 * 3);
         }
     }
 }

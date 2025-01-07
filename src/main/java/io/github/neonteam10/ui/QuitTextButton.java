@@ -25,17 +25,14 @@ public class QuitTextButton extends Table {
         if (quitButton== null && uiAssets.hasSpritesheetLoaded() && uiAssets.hasFontsLoaded()) {
             ImageTextButton.ImageTextButtonStyle style = new ImageTextButton.ImageTextButtonStyle();
 
-            style.up = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 288, 166, 64, 18));
-            style.over = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 288, 198, 64, 18));
-            style.down = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 288, 198, 64, 18));
+            style.up = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 288, 166, 64, 20));
+            style.over = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 288, 198, 64, 20));
+            style.down = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 288, 198, 64, 20));
 
             style.font = uiAssets.getSmallFont();
             style.fontColor = Color.BLACK;
 
             quitButton = new ImageTextButton("Quit", style);
-            quitButton.align(Align.center);
-            quitButton.setScale(2);
-            quitButton.setTransform(true);
 
             quitButton.addListener(new ClickListener() {
                 @Override
@@ -44,7 +41,7 @@ public class QuitTextButton extends Table {
                 }
             });
 
-            add(quitButton);
+            add(quitButton).size(64 * 3, 18 * 3);
         }
     }
 }
