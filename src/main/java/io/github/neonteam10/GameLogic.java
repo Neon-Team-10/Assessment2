@@ -10,7 +10,7 @@ import io.github.neonteam10.map.GameMap;
  * satisfaction and score.
  */
 public class GameLogic {
-    private static final float TOTAL_GAME_TIME = 5f * 60.0f;
+    private static final float TOTAL_GAME_TIME = 5.0f * 60.0f;
     private static final float BUILDING_TIME = 20.0f;
 
     private GameMap gameMap;
@@ -22,13 +22,11 @@ public class GameLogic {
     private float nextBuildingTime;
     private boolean gameOver;
     private boolean paused;
-    private boolean started;
 
     // Satisfaction.
     private float satisfaction;
     private float newBuildingSatisfaction;
     private int previousBuildingCount;
-    private int studentCount;
 
     GameScreen screen;
 
@@ -38,18 +36,12 @@ public class GameLogic {
     private float checkEventTimer;
     private float eventDurationTimer;
 
-    Leaderboard leaderboard;
-
     public GameLogic(GameScreen screen) {
         this.screen = screen;
         remainingTime = TOTAL_GAME_TIME;
         nextBuildingTime = 0.0f;
         currentEvent = GameEvent.NONE;
         paused = true;
-        started = false;
-        studentCount = 0;
-        maximumAllowedBuildings = 1;
-        leaderboard = new Leaderboard("leaderboard.file");
     }
 
     public void setMap(GameMap gameMap) {
@@ -71,13 +63,6 @@ public class GameLogic {
         return null;
     }
 
-    private float getCurrentGainRate() {
-        if (studentCount == 0) {
-            return 0.0f;
-        }
-        return gameMap.buildingGraph.getGainScore();
-    }
-
     /**
      * Continuously updates the student satisfaction.
      *
@@ -92,7 +77,7 @@ public class GameLogic {
         var roadPrefab = findPrefab("Road");
 
         // Work out the number of students based on how many accommodation buildings there are.
-        studentCount = gameMap.getBuildingCount(accommodationPrefab) * 25;
+        int studentCount = gameMap.getBuildingCount(accommodationPrefab) * 25;
 
         // Store satisfaction to add for new buildings.
         int newBuildingCount = gameMap.getTotalBuildingCount() - previousBuildingCount;
@@ -108,7 +93,7 @@ public class GameLogic {
         newBuildingSatisfaction = Math.max(newBuildingSatisfaction, 0.0f);
 
         // Apply some satisfaction based on student count.
-        //satisfaction += Math.min(studentCount / 25000.0f, 0.01f) * deltaTime;
+        satisfaction += Math.min(studentCount / 25000.0f, 0.01f) * deltaTime;
 
         // Decrease satisfaction if there isn't enough canteen or study buildings for all the students. Each canteen
         // can support 100 students and each study building can support 75 students. Use exponential formulas so a
@@ -124,9 +109,9 @@ public class GameLogic {
         }
 
         // Decay satisfaction based on a rate determined by the amount of recreation buildings.
-        float gainRate = getCurrentGainRate();
-        //gainRate -= gameMap.getBuildingCount(recreationPrefab) / 500.0f;
-        satisfaction += gainRate * deltaTime;
+        float decayRate = 0.035f;
+        decayRate -= gameMap.getBuildingCount(recreationPrefab) / 500.0f;
+        satisfaction -= Math.max(decayRate, 0.015f) * deltaTime;
 
         // Handle rain and roses events.
         if (currentEvent == GameEvent.RAIN) {
@@ -136,7 +121,7 @@ public class GameLogic {
         }
 
         // Clamp satisfaction between 0 and 1.
-        //satisfaction = MathUtils.clamp(satisfaction, 0.0f, 1.0f);
+        satisfaction = MathUtils.clamp(satisfaction, 0.0f, 1.0f);
     }
 
     /**
@@ -156,9 +141,7 @@ public class GameLogic {
         if (remainingTime < 0.0f) {
             gameOver = true;
         }
-        if (started) {
-            nextBuildingTime -= deltaTime;
-        }
+        nextBuildingTime -= deltaTime;
         if (nextBuildingTime < 0.0f) {
             // User can place another building.
             maximumAllowedBuildings++;
@@ -166,34 +149,29 @@ public class GameLogic {
         }
 
         // Update satisfaction.
-        if (!paused && !gameOver) {
-            updateSatisfaction(deltaTime);
+        updateSatisfaction(deltaTime);
+
+        // Tick event duration timer.
+        if (currentEvent != GameEvent.NONE) {
+            eventDurationTimer -= deltaTime;
+        }
+        if (eventDurationTimer < 0.0f) {
+            currentEvent = GameEvent.NONE;
+        }
+        if (currentEvent != GameEvent.NONE) {
+            return;
         }
 
-        if (!paused) {
-            // Tick event duration timer.
-            if (currentEvent != GameEvent.NONE) {
-                eventDurationTimer -= deltaTime;
-            }
-            if (eventDurationTimer < 0.0f) {
-                currentEvent = GameEvent.NONE;
-            }
-            if (currentEvent != GameEvent.NONE) {
-                return;
-            }
-
-
-            // Generate a random number every 2 seconds to see if we should start an event. Bias the random number slightly
-            // to prevent events from happening to close to each other.
-            nextEventProbability += deltaTime * 0.01f;
-            checkEventTimer += deltaTime;
-            if (checkEventTimer > 2.0f) {
-                checkEventTimer = 0.0f;
-                if (Math.min(MathUtils.random() + 0.1f, 1.0f) < nextEventProbability) {
-                    nextEventProbability = 0;
-                    currentEvent = GameEvent.values()[MathUtils.random(GameEvent.values().length - 1)];
-                    eventDurationTimer = MathUtils.random(15.0f, 45.0f);
-                }
+        // Generate a random number every 2 seconds to see if we should start an event. Bias the random number slightly
+        // to prevent events from happening to close to each other.
+        nextEventProbability += deltaTime * 0.01f;
+        checkEventTimer += deltaTime;
+        if (checkEventTimer > 2.0f) {
+            checkEventTimer = 0.0f;
+            if (Math.min(MathUtils.random() + 0.1f, 1.0f) < nextEventProbability) {
+                nextEventProbability = 0;
+                currentEvent = GameEvent.values()[MathUtils.random(GameEvent.values().length - 1)];
+                eventDurationTimer = MathUtils.random(15.0f, 45.0f);
             }
         }
     }
@@ -258,9 +236,6 @@ public class GameLogic {
 
     public boolean setPaused(boolean paused) {
         this.paused = paused;
-        if (!(started) && !(paused)){
-            started = true;
-        }
         return this.paused;
     }
 

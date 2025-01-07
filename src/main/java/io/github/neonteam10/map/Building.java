@@ -63,20 +63,4 @@ public class Building {
     public boolean getRoad() {
         return road;
     }
-
-    public boolean isAccommodation() {
-        return getPrefab().getName().equals("Accommodation");
-    }
-
-    public boolean isCanteen() {
-        return getPrefab().getName().equals("Canteen");
-    }
-
-    public boolean isRecreation() {
-        return getPrefab().getName().equals("Recreation");
-    }
-
-    public boolean isStudy() {
-        return getPrefab().getName().equals("Study");
-    }
 }

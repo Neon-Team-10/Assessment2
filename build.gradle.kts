@@ -15,12 +15,10 @@ dependencies {
     api("com.badlogicgames.gdx:gdx-freetype:1.12.1")
     implementation("com.badlogicgames.gdx:gdx-backend-lwjgl3:1.12.1")
     implementation("com.badlogicgames.gdx:gdx-platform:1.12.1:natives-desktop")
-    implementation("com.badlogicgames.gdx:gdx-backend-headless:1.10.0")
     implementation("com.badlogicgames.gdx:gdx-freetype-platform:1.12.1:natives-desktop")
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter") 
-
-    testImplementation("org.mockito:mockito-core:4.0.0")
+    //testImplementation("com.badlogicgames.gdx:gdx-backend-headless")
 
     //testRuntimeOnly("org.junit.platform:junit-platform-engine")
 }
@@ -32,7 +30,7 @@ tasks.compileJava {
 tasks.jar {
     manifest {
         attributes(
-            "Main-Class" to "io.github.neonteam10.UniSimGame"
+            "Main-Class" to "io.github.uoyteamsix.UniSimGame"
         )
     }
 }

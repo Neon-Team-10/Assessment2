@@ -49,13 +49,13 @@ public class BuildingStatsBox extends Table {
         if (getChildren().isEmpty() && !labels.isEmpty() && boxImage != null) {
             add(boxImage).size(64.0f * 3.0f, 32.0f * 3.0f);
             row();
-            add(labels.get(1)).align(Align.left).padLeft(12.0f).padTop(-165.0f);
+            add(labels.get(0)).align(Align.left).padLeft(12.0f).padTop(-165.0f);
             row();
-            add(labels.get(2)).align(Align.left).padLeft(12.0f).padTop(-116.0f);
+            add(labels.get(1)).align(Align.left).padLeft(12.0f).padTop(-116.0f);
             row();
-            add(labels.get(3)).align(Align.left).padLeft(12.0f).padTop(-68.0f);
+            add(labels.get(2)).align(Align.left).padLeft(12.0f).padTop(-68.0f);
             row();
-            add(labels.get(4)).align(Align.left).padLeft(12.0f).padTop(-23.0f);
+            add(labels.get(3)).align(Align.left).padLeft(12.0f).padTop(-23.0f);
         }
 
         // Update label text.
