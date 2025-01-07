@@ -13,7 +13,7 @@ import com.badlogic.gdx.utils.Align;
 import io.github.neonteam10.GameLogic;
 
 public class LeaderBoardBox extends Table {
-    private Image Background;
+    private Image backGround;
     private Stack boxStack;
     private final UiAssets uiAssets;
     private final GameLogic gameLogic;
@@ -23,30 +23,10 @@ public class LeaderBoardBox extends Table {
         this.gameLogic = gameLogic;
     }
     public void act(float delta) {
-        if (restartButton == null && uiAssets.hasSpritesheetLoaded() && uiAssets.hasFontsLoaded()) {
-            ImageTextButton.ImageTextButtonStyle style = new ImageTextButton.ImageTextButtonStyle();
-
-            style.up = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 288, 166, 64, 18));
-            style.over = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 288, 198, 64, 18));
-            style.down = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 288, 198, 64, 18));
-
-            style.font = uiAssets.getSmallFont();
-            style.fontColor = Color.BLACK;
-
-            restartButton = new ImageTextButton("Restart", style);
-            restartButton.align(Align.center);
-            restartButton.setScale(2);
-            restartButton.setTransform(true);
-
-            restartButton.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    gameLogic.restart();
-                }
-            });
-
-            add(restartButton);
+        if (uiAssets.hasSpritesheetLoaded()) {
+            if (backGround == null) {
+                backGround = new Image(new TextureRegion(uiAssets.getSpritesheet(), 320, 32, 64, 32));
+            }
         }
     }
-}
 }
