@@ -36,6 +36,10 @@ jobs:
     - name: Build with Gradle Wrapper
       run: ./gradlew build
 
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
     # Run JUnit tests
     - name: Run JUnit test
       run: ./gradlew test
