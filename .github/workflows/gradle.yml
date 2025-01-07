@@ -44,4 +44,13 @@ jobs:
       with: 
         name: test-results 
         path: build/test-results/**/*.xml
+
+    - name: Test Summary
+      uses: test-summary/action@v2
+      with:
+        paths: "test/results/**/TEST-*.xml"
+      if: always()
+    
+
+          
   
