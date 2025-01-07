@@ -72,9 +72,18 @@ public class MapNode {
     }
 
     public int getDistance(MapNode targetNode) {
-        if (targetNode.buildingNode == null) {
+        if (targetNode.buildingNode == null || buildingNode == null) {
             return Integer.MAX_VALUE;
         }
         return buildingNode.connections.get(targetNode.buildingNode);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof MapNode)) {
+            return false;
+        }
+        MapNode otherNode = (MapNode) obj;
+        return otherNode.building == this.building;
     }
 }

@@ -88,7 +88,7 @@ public class GameScreen extends ScreenAdapter {
     private void initializeMap() {
         try {
             var tiledMap = assetManager.get("maps/map.tmx", TiledMap.class);
-            map = new GameMap(tiledMap);
+            map = new GameMap(tiledMap, gameLogic);
             mapRenderer = new OrthogonalTiledMapRenderer(tiledMap, batch);
 
             // Center the camera on the map.
