@@ -79,6 +79,7 @@ public class GameScreen extends ScreenAdapter {
         renderBuildingPlacement();
 
         // Render the UI last.
+        uiStage.update();
         uiStage.draw();
     }
 

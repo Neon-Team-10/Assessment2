@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Align;
 import io.github.neonteam10.GameLogic;
 
 public class PauseButton extends Table {
-    private ImageButton pause;
+    public ImageButton pause;
     private final UiAssets uiAssets;
     private final GameLogic gameLogic;
     private final Table pauseTable;
@@ -41,6 +41,12 @@ public class PauseButton extends Table {
                   }
               });
             add(pause);
+        }
+    }
+
+    public void setChecked(boolean checked) {
+        if (pause != null) {
+            pause.setChecked(checked);
         }
     }
 }
