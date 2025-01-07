@@ -10,7 +10,7 @@ import io.github.neonteam10.map.GameMap;
  * satisfaction and score.
  */
 public class GameLogic {
-    private static final float TOTAL_GAME_TIME = 0.5f * 60.0f;
+    private static final float TOTAL_GAME_TIME = 5f * 60.0f;
     private static final float BUILDING_TIME = 20.0f;
 
     private GameMap gameMap;
