@@ -43,8 +43,6 @@ public class Leaderboard {
             fileStream.close();
         } catch (Exception e) {
             e.printStackTrace();
-            scores = new HashMap<>();
-            scores.put("BEN", 37000);
         }
     }
 

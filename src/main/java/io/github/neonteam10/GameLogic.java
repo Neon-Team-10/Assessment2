@@ -1,5 +1,7 @@
 package io.github.neonteam10;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.MathUtils;
 
 import io.github.neonteam10.map.BuildingPrefab;
@@ -148,6 +150,12 @@ public class GameLogic {
         if (gameOver) {
             return;
         }
+
+        //skip time to end
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+            remainingTime = 2;
+        }
+
 
         // Update timers.
         if (!paused) {

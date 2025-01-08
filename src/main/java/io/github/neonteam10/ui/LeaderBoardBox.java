@@ -27,7 +27,7 @@ public class LeaderBoardBox extends Table {
     public LeaderBoardBox(UiAssets uiAssets, GameLogic gameLogic) {
         this.uiAssets = uiAssets;
         this.gameLogic = gameLogic;
-        this.leaderboard = new Leaderboard("scores.txt");
+        this.leaderboard = new Leaderboard("leaderboard.file");
     }
     public void act(float delta) {
         super.act(delta);
@@ -36,7 +36,7 @@ public class LeaderBoardBox extends Table {
                 backGround = new Image(new TextureRegion(uiAssets.getSpritesheet(), 320, 32, 64, 32));
             }
             if (labelList == null) {
-                Label.LabelStyle labelStyle = new Label.LabelStyle(uiAssets.getLargeFont(), Color.BLACK);
+                Label.LabelStyle labelStyle = new Label.LabelStyle(uiAssets.getSmallFont(), Color.BLACK);
                 List<Map.Entry<String, Integer>> scoreMap = leaderboard.getTopFive();
                 labelList = new ArrayList<>();
                 for (Map.Entry<String, Integer> stringIntegerEntry : scoreMap) {
@@ -62,11 +62,18 @@ public class LeaderBoardBox extends Table {
                 boxStack.add(stackTable);
                 add(boxStack).size(64 * 4, 32 * 16);
             }
+            leaderboard.readLeaderboard();
             List<Map.Entry<String, Integer>> scoreMap = leaderboard.getTopFive();
-            for (Map.Entry<String, Integer> stringIntegerEntry : scoreMap) {
-                for (Label label : labelList) {
-                    label.setText(String.format("%s: %d", stringIntegerEntry.getKey(), stringIntegerEntry.getValue()));
-                }
+            for (int i = 0; i < labelList.size(); i++) {
+                labelList.get(i).setText(String.format("%s: %d", scoreMap.get(i).getKey(), scoreMap.get(i).getValue()));
+            }
+        }
+    }
+    public void updateLeaderBoard() {
+        List<Map.Entry<String, Integer>> scoreMap = leaderboard.getTopFive();
+        for (Map.Entry<String, Integer> stringIntegerEntry : scoreMap) {
+            for (Label label : labelList) {
+                label.setText(String.format("%s: %d", stringIntegerEntry.getKey(), stringIntegerEntry.getValue()));
             }
         }
     }
