@@ -1,12 +1,16 @@
 package io.github.neonteam10.ui;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
+import io.github.neonteam10.Achievements.AchievementController;
+import io.github.neonteam10.Achievements.ShowAchievement;
 import io.github.neonteam10.GameLogic;
 
 /**
@@ -15,6 +19,8 @@ import io.github.neonteam10.GameLogic;
 public class UiStage extends Stage {
     private final UiAssets assets;
     private final GameLogic gameLogic;
+    private ShowAchievement showAchievement;
+    private AchievementController achievementController;
     Table topLeftTable;
     Table pauseTable;
     Table topRightTable;
@@ -27,7 +33,8 @@ public class UiStage extends Stage {
         super(new ScreenViewport());
         this.assets = new UiAssets(assetManager);
         this.gameLogic = gameLogic;
-
+        showAchievement = new ShowAchievement(assets);
+        showAchievement.setVisible(false);
         // Create a table to fill the whole screen.
         Stack mainStack = new Stack();
         Table mainTable = new Table();
@@ -97,5 +104,12 @@ public class UiStage extends Stage {
             endGameTable.setVisible(true);
         }
 
+    }
+
+    public void activateAchievement(String name, String description) {
+        showAchievement.clearChildren();
+        showAchievement.add(new Label("Achievement Unlocked:" + name , new Label.LabelStyle(assets.getLargeFont(), Color.BLACK))).align(Align.center).padBottom(10).row();
+        showAchievement.add(new Label(description , new Label.LabelStyle(assets.getSmallFont(), Color.BLACK))).align(Align.center).padBottom(10).row();
+        showAchievement.AchievementAppear();
     }
 }

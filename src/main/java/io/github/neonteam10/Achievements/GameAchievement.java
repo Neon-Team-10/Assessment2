@@ -6,14 +6,13 @@ public abstract class GameAchievement {
     public String description;
     private boolean unlocked = false;
 
-    public GameAchievement(String name, String achievementIcon, String description)
+    public GameAchievement(String name, String description)
     {
         this.name = name;
-        this.achievementIcon = achievementIcon;
         this.description = description;
     }
 
-    private void Unlock ()
+    public void Unlock ()
     {
         if (!unlocked && getUnlockStatus()) {
             this.unlocked = true;
@@ -21,6 +20,9 @@ public abstract class GameAchievement {
         }
     }
 
+    public boolean getUnlocked(){
+        return unlocked;
+    }
     protected abstract boolean getUnlockStatus();
 
     protected abstract void DisplayAchievement();

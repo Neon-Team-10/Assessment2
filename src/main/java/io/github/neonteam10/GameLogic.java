@@ -1,9 +1,12 @@
 package io.github.neonteam10;
 
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.math.MathUtils;
 
+import io.github.neonteam10.Achievements.AchievementController;
 import io.github.neonteam10.map.BuildingPrefab;
 import io.github.neonteam10.map.GameMap;
+import io.github.neonteam10.ui.UiStage;
 
 /**
  * A class which manages the gameplay logic, including the remaining game time, placing buildings, and calculating
@@ -40,6 +43,9 @@ public class GameLogic {
 
     Leaderboard leaderboard;
 
+    private AchievementController achievementController;
+
+
     public GameLogic(GameScreen screen) {
         this.screen = screen;
         remainingTime = TOTAL_GAME_TIME;
@@ -50,6 +56,7 @@ public class GameLogic {
         studentCount = 0;
         maximumAllowedBuildings = 1;
         leaderboard = new Leaderboard("leaderboard.file");
+        achievementController = new AchievementController(this, gameMap, new UiStage(new AssetManager(),this));
     }
 
     public void setMap(GameMap gameMap) {
@@ -62,7 +69,7 @@ public class GameLogic {
      * @param name the prefab name
      * @return a {@link BuildingPrefab}
      */
-    private BuildingPrefab findPrefab(String name) {
+    public BuildingPrefab findPrefab(String name) {
         for (var prefab : gameMap.getAvailablePrefabs()) {
             if (prefab.getName().equals(name)) {
                 return prefab;
@@ -170,6 +177,11 @@ public class GameLogic {
             updateSatisfaction(deltaTime);
         }
 
+        //tick achievements
+        if (!paused) {
+            achievementController.AchievementsUnlocked();
+        }
+
         if (!paused) {
             // Tick event duration timer.
             if (currentEvent != GameEvent.NONE) {
@@ -196,6 +208,8 @@ public class GameLogic {
                 }
             }
         }
+
+
     }
 
     /**
