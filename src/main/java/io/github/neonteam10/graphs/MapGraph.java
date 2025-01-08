@@ -8,10 +8,7 @@ import java.util.*;
  * This graph is purely for literal connections between map nodes (A building can only be connected to roads in this graph)
  */
 public class MapGraph {
-<<<<<<< HEAD
-=======
     final float BUILDING_GAIN_VALUE = 1.0f;
->>>>>>> 6f34ddd (Changed the scoring calculation in GameLogic, includin adding bobuses for accommodation and cantee radii, which I've had to put in BuildingGrapgh to get the distances.)
     List<MapNode> nodes;
     BuildingGraph buildingGraph;
     public MapGraph() {

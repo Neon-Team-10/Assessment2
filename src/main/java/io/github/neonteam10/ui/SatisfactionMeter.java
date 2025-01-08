@@ -51,11 +51,7 @@ public class SatisfactionMeter extends Table {
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         if (satisfactionLabel != null) {
-<<<<<<< HEAD
-            satisfactionLabel.setText(String.format("%06d", ((int) (gameLogic.getSatisfaction()*1000))));
-=======
             satisfactionLabel.setText(String.format("%06d", ((int) (gameLogic.getSatisfaction()))));
->>>>>>> 6f34ddd (Changed the scoring calculation in GameLogic, includin adding bobuses for accommodation and cantee radii, which I've had to put in BuildingGrapgh to get the distances.)
         }
     }
 }
