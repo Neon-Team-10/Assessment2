@@ -26,7 +26,7 @@ public class GameMap {
     private final List<BuildingPrefab> availablePrefabs;
     private final List<Building> placedBuildings;
 
-    private final MapGraph buildingGraph;
+    public final MapGraph buildingGraph;
 
     public GameMap(TiledMap tiledMap) {
         this.tiledMap = tiledMap;

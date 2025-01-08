@@ -22,6 +22,7 @@ public class GameLogic {
     private float nextBuildingTime;
     private boolean gameOver;
     private boolean paused;
+    private boolean started;
 
     // Satisfaction.
     private float satisfaction;
@@ -38,12 +39,18 @@ public class GameLogic {
     private float checkEventTimer;
     private float eventDurationTimer;
 
+    Leaderboard leaderboard;
+
     public GameLogic(GameScreen screen) {
         this.screen = screen;
         remainingTime = TOTAL_GAME_TIME;
         nextBuildingTime = 0.0f;
         currentEvent = GameEvent.NONE;
         paused = true;
+        started = false;
+        studentCount = 0;
+        maximumAllowedBuildings = 1;
+        leaderboard = new Leaderboard("leaderboard.file");
     }
 
     public void setMap(GameMap gameMap) {
@@ -77,7 +84,7 @@ public class GameLogic {
         var studyPrefab = findPrefab("Study");
 
         // Work out the number of students based on how many accommodation buildings there are.
-        int studentCount = gameMap.getBuildingCount(accommodationPrefab) * 25;
+        studentCount = gameMap.getBuildingCount(accommodationPrefab) * 25;
 
         // Store satisfaction to add for new buildings. 50 score per new building
         int newBuildingCount = gameMap.getTotalBuildingCount() - previousBuildingCount;
@@ -148,7 +155,9 @@ public class GameLogic {
         if (remainingTime < 0.0f) {
             gameOver = true;
         }
-        nextBuildingTime -= deltaTime;
+        if (started) {
+            nextBuildingTime -= deltaTime;
+        }
         if (nextBuildingTime < 0.0f) {
             // User can place another building.
             maximumAllowedBuildings++;
@@ -156,29 +165,34 @@ public class GameLogic {
         }
 
         // Update satisfaction.
-        updateSatisfaction(deltaTime);
-
-        // Tick event duration timer.
-        if (currentEvent != GameEvent.NONE) {
-            eventDurationTimer -= deltaTime;
-        }
-        if (eventDurationTimer < 0.0f) {
-            currentEvent = GameEvent.NONE;
-        }
-        if (currentEvent != GameEvent.NONE) {
-            return;
+        if (!paused && !gameOver) {
+            updateSatisfaction(deltaTime);
         }
 
-        // Generate a random number every 2 seconds to see if we should start an event. Bias the random number slightly
-        // to prevent events from happening to close to each other.
-        nextEventProbability += deltaTime * 0.01f;
-        checkEventTimer += deltaTime;
-        if (checkEventTimer > 2.0f) {
-            checkEventTimer = 0.0f;
-            if (Math.min(MathUtils.random() + 0.1f, 1.0f) < nextEventProbability) {
-                nextEventProbability = 0;
-                currentEvent = GameEvent.values()[MathUtils.random(GameEvent.values().length - 1)];
-                eventDurationTimer = MathUtils.random(15.0f, 45.0f);
+        if (!paused) {
+            // Tick event duration timer.
+            if (currentEvent != GameEvent.NONE) {
+                eventDurationTimer -= deltaTime;
+            }
+            if (eventDurationTimer < 0.0f) {
+                currentEvent = GameEvent.NONE;
+            }
+            if (currentEvent != GameEvent.NONE) {
+                return;
+            }
+
+
+            // Generate a random number every 2 seconds to see if we should start an event. Bias the random number slightly
+            // to prevent events from happening to close to each other.
+            nextEventProbability += deltaTime * 0.01f;
+            checkEventTimer += deltaTime;
+            if (checkEventTimer > 2.0f) {
+                checkEventTimer = 0.0f;
+                if (Math.min(MathUtils.random() + 0.1f, 1.0f) < nextEventProbability) {
+                    nextEventProbability = 0;
+                    currentEvent = GameEvent.values()[MathUtils.random(GameEvent.values().length - 1)];
+                    eventDurationTimer = MathUtils.random(15.0f, 45.0f);
+                }
             }
         }
     }
@@ -243,6 +257,9 @@ public class GameLogic {
 
     public boolean setPaused(boolean paused) {
         this.paused = paused;
+        if (!(started) && !(paused)){
+            started = true;
+        }
         return this.paused;
     }
 

@@ -8,7 +8,9 @@ import java.util.List;
  * This graph is used to show the relationship between buildings (do they have a road connecting them?).
  */
 public class BuildingGraph {
+    final float BEST_DISTANCE = 6f;
     List<BuildingNode> nodes;
+    float accommodationQualityScore;
 
     public BuildingGraph() {
         nodes = new ArrayList<>();
