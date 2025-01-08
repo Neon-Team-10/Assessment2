@@ -28,6 +28,7 @@ public class GameLogic {
     private float satisfaction;
     private float newBuildingSatisfaction;
     private int previousBuildingCount;
+    private int previousStudentCount;
     private int studentCount;
 
     GameScreen screen;
@@ -71,13 +72,6 @@ public class GameLogic {
         return null;
     }
 
-    private float getCurrentGainRate() {
-        if (studentCount == 0) {
-            return 0.0f;
-        }
-        return gameMap.buildingGraph.getGainScore();
-    }
-
     /**
      * Continuously updates the student satisfaction.
      *
@@ -87,28 +81,29 @@ public class GameLogic {
         // Get all building types.
         var accommodationPrefab = findPrefab("Accommodation");
         var canteenPrefab = findPrefab("Canteen");
-        var recreationPrefab = findPrefab("Recreation");
         var studyPrefab = findPrefab("Study");
-        var roadPrefab = findPrefab("Road");
 
         // Work out the number of students based on how many accommodation buildings there are.
         studentCount = gameMap.getBuildingCount(accommodationPrefab) * 25;
 
-        // Store satisfaction to add for new buildings.
+        // Store satisfaction to add for new buildings. 50 score per new building
         int newBuildingCount = gameMap.getTotalBuildingCount() - previousBuildingCount;
         if (newBuildingCount > 0) {
-            newBuildingSatisfaction += 0.5f * newBuildingCount;
+            newBuildingSatisfaction = 50.0f * newBuildingCount;
+        } else {
+            newBuildingSatisfaction = 0.0f;
         }
         previousBuildingCount = gameMap.getTotalBuildingCount();
+        satisfaction += newBuildingSatisfaction;
 
-        // Slowly apply new building satisfaction.
-        float newBuildingFactor = newBuildingSatisfaction * 2.0f * deltaTime;
-        satisfaction += newBuildingFactor;
-        newBuildingSatisfaction -= newBuildingFactor;
-        newBuildingSatisfaction = Math.max(newBuildingSatisfaction, 0.0f);
-
-        // Apply some satisfaction based on student count.
-        //satisfaction += Math.min(studentCount / 25000.0f, 0.01f) * deltaTime;
+        // Store satisfaction to add for new students. 10 score per new student
+        int newStudentCount = studentCount - previousStudentCount;
+        float newStudentSatisfaction = 0.0f;
+        if (newStudentCount > 0) {
+            newStudentSatisfaction = 10.0f * newStudentCount;
+        }
+        previousStudentCount = studentCount;
+        satisfaction += newStudentSatisfaction;
 
         // Decrease satisfaction if there isn't enough canteen or study buildings for all the students. Each canteen
         // can support 100 students and each study building can support 75 students. Use exponential formulas so a
@@ -116,27 +111,31 @@ public class GameLogic {
         var canteenDeficit = studentCount - gameMap.getBuildingCount(canteenPrefab) * 100;
         var studyDeficit = studentCount - gameMap.getBuildingCount(studyPrefab) * 75;
         if (canteenDeficit > 0) {
-            satisfaction -= ((float) Math.pow(2.0f, canteenDeficit / 12.0f) / 175.0f) * deltaTime * 0.5f;
+            satisfaction -= ((float) Math.pow(2.0f, canteenDeficit/10)/1000);
         }
         if (studyDeficit > 0) {
             float factor = currentEvent == GameEvent.STRIKE ? 1.0f : 0.5f;
-            satisfaction -= ((float) Math.pow(2.0f, studyDeficit / 15.0f) / 75.0f) * deltaTime * factor;
+            satisfaction -= ((float) Math.pow(2.0f, studyDeficit/10))/1000 * factor;
         }
 
         // Decay satisfaction based on a rate determined by the amount of recreation buildings.
-        float gainRate = getCurrentGainRate();
-        //gainRate -= gameMap.getBuildingCount(recreationPrefab) / 500.0f;
-        satisfaction += gainRate * deltaTime;
+        //float gainRate = getCurrentGainRate();
+
+        float Canteenbonus = gameMap.buildingGraph.getBonus("Canteen");
+        float Accommodationbonus = gameMap.buildingGraph.getBonus("Accommodation");
+        
+        float totalBonus = (Canteenbonus+Accommodationbonus)/100;
+        satisfaction += totalBonus;
 
         // Handle rain and roses events.
         if (currentEvent == GameEvent.RAIN) {
-            satisfaction -= 0.02f * deltaTime;
+            satisfaction -= 2f * deltaTime;
         } else if (currentEvent == GameEvent.ROSES) {
-            satisfaction += 0.02f * deltaTime;
+            satisfaction += 2f * deltaTime;
         }
 
-        // Clamp satisfaction between 0 and 1.
-        //satisfaction = MathUtils.clamp(satisfaction, 0.0f, 1.0f);
+        // Clamp satisfaction above 0.
+        satisfaction = MathUtils.clamp(satisfaction, 0.0f, Integer.MAX_VALUE);
     }
 
     /**

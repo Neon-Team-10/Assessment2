@@ -1,15 +1,11 @@
 package io.github.neonteam10.ui;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
 import io.github.neonteam10.GameLogic;
 
@@ -55,7 +51,7 @@ public class SatisfactionMeter extends Table {
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         if (satisfactionLabel != null) {
-            satisfactionLabel.setText(String.format("%06d", ((int) (gameLogic.getSatisfaction()*10))));
+            satisfactionLabel.setText(String.format("%06d", ((int) (gameLogic.getSatisfaction()))));
         }
     }
 }

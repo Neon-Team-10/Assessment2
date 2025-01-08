@@ -9,17 +9,14 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Null;
 import io.github.neonteam10.GameLogic;
 
 public class QuitTextButton extends Table {
     private ImageTextButton quitButton;
     private final UiAssets uiAssets;
-    private final GameLogic gameLogic;
 
     public QuitTextButton(UiAssets uiAssets, GameLogic gameLogic) {
         this.uiAssets = uiAssets;
-        this.gameLogic = gameLogic;
     }
     public void act(float delta) {
         if (quitButton== null && uiAssets.hasSpritesheetLoaded() && uiAssets.hasFontsLoaded()) {
