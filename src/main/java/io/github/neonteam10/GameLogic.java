@@ -272,4 +272,8 @@ public class GameLogic {
         screen.restart();
     }
 
+    public boolean getGameOver() {
+        return gameOver;
+    }
+
 }

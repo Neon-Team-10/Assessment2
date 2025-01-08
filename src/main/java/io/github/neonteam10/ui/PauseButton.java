@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Align;
 import io.github.neonteam10.GameLogic;
 
 public class PauseButton extends Table {
-    private ImageButton pause;
+    public ImageButton pause;
     private final UiAssets uiAssets;
     private final GameLogic gameLogic;
     private final Table pauseTable;
@@ -26,8 +26,8 @@ public class PauseButton extends Table {
         super.act(delta);
 
         if (pause == null && uiAssets.hasSpritesheetLoaded()) {
-            pause = new ImageButton(new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 224, 254, 32, 32)));
-            pause.getStyle().imageChecked = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 224, 224, 32, 32));
+            pause = new ImageButton(new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 224, 224, 32, 32)));
+            pause.getStyle().imageChecked = new TextureRegionDrawable(new TextureRegion(uiAssets.getSpritesheet(), 224, 254, 32, 32));
             pause.setTransform(true);
             pause.setOrigin(Align.center);
             pause.setScale(3);
@@ -41,6 +41,12 @@ public class PauseButton extends Table {
                   }
               });
             add(pause);
+        }
+    }
+
+    public void setChecked(boolean checked) {
+        if (pause != null) {
+            pause.setChecked(checked);
         }
     }
 }
