@@ -20,7 +20,6 @@ public class Leaderboard {
             }
         }
         readLeaderboard();
-        System.out.println(scores.toString());
     }
 
     // Typical usage after user selected:
