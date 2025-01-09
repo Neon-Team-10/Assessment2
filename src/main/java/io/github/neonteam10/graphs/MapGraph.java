@@ -112,7 +112,7 @@ public class MapGraph {
 
     public float getBonus(String buildingType) {
         if (buildingType == "Canteen") {
-            return buildingGraph.canteenBonus();            
+            return buildingGraph.canteenBonus();
         } else if (buildingType == "Accommodation") {
             return buildingGraph.accommodationBonus();
         } else {

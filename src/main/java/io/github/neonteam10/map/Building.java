@@ -7,7 +7,7 @@ public class Building {
     private final BuildingPrefab prefab;
     private final int x;
     private final int y;
-    private final boolean road;   
+    private final boolean road;
 
     public Building(BuildingPrefab prefab, int x, int y) {
         this.prefab = prefab;

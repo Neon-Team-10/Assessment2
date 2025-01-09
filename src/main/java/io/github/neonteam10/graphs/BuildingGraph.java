@@ -60,14 +60,14 @@ public class BuildingGraph {
                         int distanceToAccommodation = canteenNode.connections.get(neighbour);
                         if (Math.abs(distanceToAccommodation) < 5){
                             bonus += 0.5;
-                        } 
+                        }
                     }
                     if (neighbour.building.isStudy()) {
                         int distanceToStudy = canteenNode.connections.get(neighbour);
                         if (Math.abs(distanceToStudy) < 15) {
                             bonus += 1;
                         }
-                    } 
+                    }
                 }
             }
         }
@@ -91,7 +91,7 @@ public class BuildingGraph {
                     if (neighbour.building.isRecreation()) {
                         int distanceToStudy = accommNode.connections.get(neighbour);
                         if (distanceToStudy < 15) bonus += 10;
-                    } 
+                    }
                 }
             }
         }

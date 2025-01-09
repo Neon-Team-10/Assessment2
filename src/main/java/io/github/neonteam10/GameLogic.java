@@ -1,5 +1,7 @@
 package io.github.neonteam10;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.MathUtils;
 
 import io.github.neonteam10.map.BuildingPrefab;
@@ -39,8 +41,6 @@ public class GameLogic {
     private float checkEventTimer;
     private float eventDurationTimer;
 
-    Leaderboard leaderboard;
-
     public GameLogic(GameScreen screen) {
         this.screen = screen;
         remainingTime = TOTAL_GAME_TIME;
@@ -50,7 +50,6 @@ public class GameLogic {
         started = false;
         studentCount = 0;
         maximumAllowedBuildings = 1;
-        leaderboard = new Leaderboard("leaderboard.file");
     }
 
     public void setMap(GameMap gameMap) {
@@ -123,7 +122,7 @@ public class GameLogic {
 
         float Canteenbonus = gameMap.buildingGraph.getBonus("Canteen");
         float Accommodationbonus = gameMap.buildingGraph.getBonus("Accommodation");
-        
+
         float totalBonus = (Canteenbonus+Accommodationbonus)/100;
         satisfaction += totalBonus;
 
@@ -147,6 +146,12 @@ public class GameLogic {
         if (gameOver) {
             return;
         }
+
+        //skip time to end
+        if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+            remainingTime = 2;
+        }
+
 
         // Update timers.
         if (!paused) {
