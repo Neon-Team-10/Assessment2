@@ -33,6 +33,7 @@ public class GameLogic {
     private float satisfaction;
     private float newBuildingSatisfaction;
     private int previousBuildingCount;
+    private int previousStudentCount;
     private int studentCount;
 
     GameScreen screen;
