@@ -63,7 +63,6 @@ public class LeaderBoardBox extends Table {
                 stackTable.add(scoreTable);
                 stackTable.row();
                 stackTable.add(new AddScoreButton(uiAssets, gameLogic, leaderboard)).bottom().expand().padBottom(25);
-                stackTable.debug();
                 boxStack.add(stackTable);
                 add(boxStack).size(64 * 4, 32 * 16);
             }
