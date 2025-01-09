@@ -15,8 +15,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 
 import io.github.neonteam10.map.BuildingPrefab;
 
-public class BuildingPrefabTest extends AbstractHeadlessTest {
-
+public class BuildingTestHeadless extends AbstractHeadlessTest{
 
     public TiledMap map() {
         AssetManager assetManager = new AssetManager();
@@ -31,21 +30,20 @@ public class BuildingPrefabTest extends AbstractHeadlessTest {
 
     @Test
     public void generateAllPrefabs() {
-        // Create building types for each prefab layer in the map.
-        ArrayList<BuildingPrefab> availablePrefabs = new ArrayList<>();
-        for (var layer : map().getLayers()) {
-            if (layer.getName().startsWith("Prefab: ")) {
-                // Extract prefab name, e.g. Accomodation.
-                var prefabName = layer.getName().substring("Prefab: ".length());
-                availablePrefabs.add(new BuildingPrefab(prefabName, (TiledMapTileLayer) layer));
-            }
-        }
-        assertTrue(availablePrefabs.size() == 5);
-        for (BuildingPrefab buildingPrefab : availablePrefabs) {
-            System.out.println(buildingPrefab.getName());
+    // Create building types for each prefab layer in the map.
+    ArrayList<BuildingPrefab> availablePrefabs = new ArrayList<>();
+    for (var layer : map().getLayers()) {
+        if (layer.getName().startsWith("Prefab: ")) {
+            // Extract prefab name, e.g. Accomodation.
+            var prefabName = layer.getName().substring("Prefab: ".length());
+            availablePrefabs.add(new BuildingPrefab(prefabName, (TiledMapTileLayer) layer));
         }
     }
-
+    assertTrue(availablePrefabs.size() == 5);
+    for (BuildingPrefab buildingPrefab : availablePrefabs) {
+        System.out.println(buildingPrefab.getName());
+    }
+}
     @Test
     public void roadPrefabTest() {
         BuildingPrefab prefab = null;
@@ -58,19 +56,6 @@ public class BuildingPrefabTest extends AbstractHeadlessTest {
         }
         assertEquals("Road",prefab.getName());
     }
-
-    protected BuildingPrefab roadPrefab() {
-        BuildingPrefab prefab = null;
-        for (var layer : map().getLayers()) {
-            if (layer.getName().startsWith("Prefab: Road")) {
-                // Extract prefab name, e.g. Accomodation.
-                var prefabName = layer.getName().substring("Prefab: ".length());
-                prefab = new BuildingPrefab(prefabName, (TiledMapTileLayer) layer);
-            }
-        }
-        return prefab;
-    }
-
     @Test
     public void accomodationPrefabTest() {
         BuildingPrefab prefab = null;
@@ -83,19 +68,6 @@ public class BuildingPrefabTest extends AbstractHeadlessTest {
         }
         assertEquals("Accommodation",prefab.getName());
     }
-
-    protected BuildingPrefab accomodationPrefab() {
-        BuildingPrefab prefab = null;
-        for (var layer : map().getLayers()) {
-            if (layer.getName().startsWith("Prefab: Accommodation")) {
-                // Extract prefab name, e.g. Accomodation.
-                var prefabName = layer.getName().substring("Prefab: ".length());
-                prefab = new BuildingPrefab(prefabName, (TiledMapTileLayer) layer);
-            }
-        }
-        return prefab;
-    }
-
     @Test
     public void canteenPrefabTest() {
         BuildingPrefab prefab = null;
@@ -108,19 +80,6 @@ public class BuildingPrefabTest extends AbstractHeadlessTest {
         }
         assertEquals("Canteen",prefab.getName());
     }
-
-    protected BuildingPrefab canteenPrefab() {
-        BuildingPrefab prefab = null;
-        for (var layer : map().getLayers()) {
-            if (layer.getName().startsWith("Prefab: Canteen")) {
-                // Extract prefab name, e.g. Accomodation.
-                var prefabName = layer.getName().substring("Prefab: ".length());
-                prefab = new BuildingPrefab(prefabName, (TiledMapTileLayer) layer);
-            }
-        }
-        return prefab;
-    }
-
     @Test
     public void studyPrefabTest() {
         BuildingPrefab prefab = null;
@@ -133,19 +92,6 @@ public class BuildingPrefabTest extends AbstractHeadlessTest {
         }
         assertEquals("Study",prefab.getName());
     }
-
-    protected BuildingPrefab studyPrefab() {
-        BuildingPrefab prefab = null;
-        for (var layer : map().getLayers()) {
-            if (layer.getName().startsWith("Prefab: Study")) {
-                // Extract prefab name, e.g. Accomodation.
-                var prefabName = layer.getName().substring("Prefab: ".length());
-                prefab = new BuildingPrefab(prefabName, (TiledMapTileLayer) layer);
-            }
-        }
-        return prefab;
-    }
-    
     @Test
     public void recreationPrefabTest() {
         BuildingPrefab prefab = null;
@@ -158,16 +104,18 @@ public class BuildingPrefabTest extends AbstractHeadlessTest {
         }
         assertEquals("Recreation",prefab.getName());
     }
- 
-    protected BuildingPrefab recreationPrefab() {
+
+
+    @Test
+    public void accommodationBuilding() {
         BuildingPrefab prefab = null;
         for (var layer : map().getLayers()) {
-            if (layer.getName().startsWith("Prefab: Recreation")) {
+            if (layer.getName().startsWith("Prefab: Accommodation")) {
                 // Extract prefab name, e.g. Accomodation.
                 var prefabName = layer.getName().substring("Prefab: ".length());
                 prefab = new BuildingPrefab(prefabName, (TiledMapTileLayer) layer);
             }
         }
-        return prefab;
+        assertEquals("Accommodation",prefab.getName());
     }
 }
