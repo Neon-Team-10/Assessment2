@@ -70,3 +70,23 @@ jobs:
           path: test-summary.md
         if: always()
 
+
+    
+  java-junit:
+    
+      name: Java / JUnit
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Check out repository
+          uses: actions/checkout@v3
+        - name: Build and test
+          run: |
+            ant
+          working-directory: java-junit
+        - name: Create test summary
+          uses: test-summary/action@v1
+          with:
+            paths: java-junit/results/**/*.xml
+          if: always()
+
