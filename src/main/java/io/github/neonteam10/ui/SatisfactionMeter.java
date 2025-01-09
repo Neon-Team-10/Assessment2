@@ -55,7 +55,7 @@ public class SatisfactionMeter extends Table {
     public void draw(Batch batch, float parentAlpha) {
         super.draw(batch, parentAlpha);
         if (satisfactionLabel != null) {
-            satisfactionLabel.setText(String.format("%06d", ((int) (gameLogic.getSatisfaction()*10))));
+            satisfactionLabel.setText(String.format("%06d", ((int) (gameLogic.getSatisfaction()))));
         }
     }
 }

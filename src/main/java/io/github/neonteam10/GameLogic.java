@@ -114,11 +114,11 @@ public class GameLogic {
         var canteenDeficit = studentCount - gameMap.getBuildingCount(canteenPrefab) * 100;
         var studyDeficit = studentCount - gameMap.getBuildingCount(studyPrefab) * 75;
         if (canteenDeficit > 0) {
-            satisfaction -= ((float) Math.pow(2.0f, canteenDeficit/10)/1000);
+            satisfaction -= ((float) Math.pow(1.3f, canteenDeficit/10)/10);
         }
         if (studyDeficit > 0) {
-            float factor = currentEvent == GameEvent.STRIKE ? 1.0f : 0.5f;
-            satisfaction -= ((float) Math.pow(2.0f, studyDeficit/10))/1000 * factor;
+            float factor = currentEvent == GameEvent.STRIKE ? 2.0f : 1f;
+            satisfaction -= ((float) Math.pow(1.3f, studyDeficit/10)/10) * factor;
         }
 
         // Decay satisfaction based on a rate determined by the amount of recreation buildings.

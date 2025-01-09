@@ -48,8 +48,9 @@ public class BuildingGraph {
 
     /*
      * Gives a flat score bonus based on how close the canteens are to other facilities.
-     * For every accommodation building within radius 5 from a canteen, you get a bonus of 5
-     * For every study building within radius 15 from a canteen, you get a bonus of 10
+     * For every accommodation building within radius 5 from a canteen, you get a bonus of 0.5
+     * For every study building within radius 15 from a canteen, you get a bonus of 1
+     * While they may seem small, this is called every tic, and so quickly adds up
      */
     public float canteenBonus() {
         float bonus = 0.0f;
