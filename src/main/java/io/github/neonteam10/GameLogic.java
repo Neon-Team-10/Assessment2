@@ -40,8 +40,6 @@ public class GameLogic {
     private float checkEventTimer;
     private float eventDurationTimer;
 
-    Leaderboard leaderboard;
-
     public GameLogic(GameScreen screen) {
         this.screen = screen;
         remainingTime = TOTAL_GAME_TIME;
@@ -51,7 +49,6 @@ public class GameLogic {
         started = false;
         studentCount = 0;
         maximumAllowedBuildings = 1;
-        leaderboard = new Leaderboard("leaderboard.file");
     }
 
     public void setMap(GameMap gameMap) {

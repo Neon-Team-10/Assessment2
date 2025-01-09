@@ -11,7 +11,6 @@ public class EndGameUI extends Table {
     UiAssets uiAssets;
     Image background;
     GameLogic gameLogic;
-    LeaderBoardBox leaderBoardBox;
 
     public EndGameUI(UiAssets uiAssets, GameLogic gameLogic) {
         this.uiAssets = uiAssets;

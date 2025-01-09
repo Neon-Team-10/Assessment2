@@ -8,8 +8,19 @@ public class Leaderboard {
     String filename;
     public Leaderboard(String filename) {
         this.filename = filename;
+        File f = new File(filename);
+        if (!f.exists()) {
+            try {
+                f.createNewFile();
+                scores = new HashMap<>();
+                writeLeaderboard();
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
         readLeaderboard();
-        System.out.println(getTopFive().toString());
+        System.out.println(scores.toString());
     }
 
     // Typical usage after user selected:
@@ -51,12 +62,14 @@ public class Leaderboard {
     }
 
     public List<Map.Entry<String, Integer>> getTopFive() {
-        Set<Map.Entry<String, Integer>> entries = scores.entrySet();
-        List<Map.Entry<String, Integer>> list = new ArrayList<>(entries);
-        list.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
         List<Map.Entry<String, Integer>> topFive = new ArrayList<>();
-        for (int i = 0; i < 5 && i < list.size(); i++) {
-            topFive.add(list.get(i));
+        if (scores != null) {
+            Set<Map.Entry<String, Integer>> entries = scores.entrySet();
+            List<Map.Entry<String, Integer>> list = new ArrayList<>(entries);
+            list.sort((entry1, entry2) -> entry2.getValue().compareTo(entry1.getValue()));
+            for (int i = 0; i < 5 && i < list.size(); i++) {
+                topFive.add(list.get(i));
+            }
         }
         return topFive;
     }
