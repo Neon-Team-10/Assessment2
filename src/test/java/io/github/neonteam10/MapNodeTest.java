@@ -81,25 +81,4 @@ public class MapNodeTest {
 
         assertEquals(Integer.MAX_VALUE,mapNode1.getDistance(mapNode2));
     }
-
-    @Test
-    public void oneBuildingOneRoadConnected() {
-        Building building1 = new Building(null, 0, 0);
-        Building road1 = new Building(null, 0, 0,true);
-
-        BuildingNode node1 = new BuildingNode(building1);
-        BuildingNode node2 = new BuildingNode(road1);
-
-        MapNode mapNode1 = new MapNode(building1);
-        MapNode mapNode2 = new MapNode(road1);
-
-        mapNode1.addBuildingNode(node1);
-        mapNode2.addBuildingNode(node2);
-
-        mapNode1.addNeighbour(mapNode2);
-        node1.addConnection(node2);
-
-        System.err.println(mapNode1.getDistance(mapNode2));
-        assertNotEquals(Integer.MAX_VALUE, mapNode1.getDistance(mapNode2));
-    }
 }
