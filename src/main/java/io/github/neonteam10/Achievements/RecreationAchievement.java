@@ -11,7 +11,6 @@ public class RecreationAchievement extends GameAchievement {
 
     public RecreationAchievement (GameLogic gamelogic, GameMap gameMap) {
         super("Fun!","Place five Recreation buildings.");
-        TiledMap tiledMap = new TiledMap();
         this.gameMap= gameMap;
         this.gameLogic = gamelogic;
     }

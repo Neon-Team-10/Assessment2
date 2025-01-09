@@ -2,7 +2,6 @@ package io.github.neonteam10.Achievements;
 
 public abstract class GameAchievement {
     public String name;
-    public String achievementIcon;
     public String description;
     private boolean unlocked = false;
 

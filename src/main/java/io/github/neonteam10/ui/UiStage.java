@@ -8,8 +8,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-
-import io.github.neonteam10.Achievements.AchievementController;
 import io.github.neonteam10.Achievements.ShowAchievement;
 import io.github.neonteam10.GameLogic;
 
@@ -19,8 +17,7 @@ import io.github.neonteam10.GameLogic;
 public class UiStage extends Stage {
     private final UiAssets assets;
     private final GameLogic gameLogic;
-    private ShowAchievement showAchievement;
-    private AchievementController achievementController;
+    private final ShowAchievement showAchievement;
     Table topLeftTable;
     Table pauseTable;
     Table topRightTable;

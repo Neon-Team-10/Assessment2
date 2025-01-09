@@ -43,7 +43,7 @@ public class GameLogic {
 
     Leaderboard leaderboard;
 
-    private AchievementController achievementController;
+    private final AchievementController achievementController;
 
 
     public GameLogic(GameScreen screen) {

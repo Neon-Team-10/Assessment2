@@ -1,5 +1,4 @@
 package io.github.neonteam10.Achievements;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import io.github.neonteam10.map.GameMap;
 import io.github.neonteam10.GameLogic;
 
@@ -11,7 +10,6 @@ public class EducationAchievement extends GameAchievement {
 
     public EducationAchievement(GameMap gamemap, GameLogic gamelogic) {
         super("Knowledge!","Place five educational buildings.");
-        TiledMap tiledMap = new TiledMap();
         this.gameMap= gamemap;
         this.gameLogic = gamelogic;
 

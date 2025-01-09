@@ -1,20 +1,13 @@
 package io.github.neonteam10.Achievements;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
-import io.github.neonteam10.GameLogic;
-import io.github.neonteam10.map.GameMap;
 import io.github.neonteam10.ui.UiAssets;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ShowAchievement extends Table {
     private final UiAssets uiAssets;
