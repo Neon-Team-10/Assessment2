@@ -2,7 +2,6 @@ package io.github.neonteam10.map;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import io.github.neonteam10.GameLogic;
 import io.github.neonteam10.graphs.MapGraph;
 
 import java.util.ArrayList;
@@ -27,12 +26,10 @@ public class GameMap {
     private final List<BuildingPrefab> availablePrefabs;
     private final List<Building> placedBuildings;
 
-    private final GameLogic gameLogic;
     public final MapGraph buildingGraph;
 
-    public GameMap(TiledMap tiledMap, GameLogic gameLogic) {
+    public GameMap(TiledMap tiledMap) {
         this.tiledMap = tiledMap;
-        this.gameLogic = gameLogic;
         buildingLayer = (TiledMapTileLayer) tiledMap.getLayers().get("Buildings");
 
         width = buildingLayer.getWidth();
@@ -133,9 +130,6 @@ public class GameMap {
         }
         buildingGraph.addBuilding(newBuilding);
         placedBuildings.add(newBuilding);
-        if (gameLogic.getPaused()) {
-            gameLogic.setPaused(false);
-        }
     }
 
     /**

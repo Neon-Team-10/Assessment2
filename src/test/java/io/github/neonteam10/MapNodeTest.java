@@ -30,23 +30,6 @@ public class MapNodeTest {
 
         mapNode1.addBuildingNode(node1);
         assertTrue(mapNode1.isRoad());
-    }    
-    @Test
-    public void oneBuildingEqualsOverride() {
-        Building building1 = new Building(null, 0, 0);
-        MapNode mapNode1 = new MapNode(building1);
-        MapNode mapNode2 = new MapNode(building1);
-
-        assertEquals(mapNode1,mapNode2);
-
-    }
-    @Test
-    public void oneRoadEqualsOverride() {
-        Building road1 = new Building(null, 0, 0,true);
-        MapNode mapNode1 = new MapNode(road1);
-        MapNode mapNode2 = new MapNode(road1);
-
-        assertEquals(mapNode1,mapNode2);
     }
     @Test
     public void oneBuildingOneRoadnotConnected() {

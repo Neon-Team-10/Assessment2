@@ -1,8 +1,5 @@
 package io.github.neonteam10.map;
 
-import io.github.neonteam10.graphs.BuildingNode;
-import io.github.neonteam10.graphs.MapNode;
-
 /**
  * A class which represents a building placed on the map.
  */
@@ -11,16 +8,12 @@ public class Building {
     private final int x;
     private final int y;
     private final boolean road;
-    private MapNode mapNode;
-    private BuildingNode buildingNode;
 
     public Building(BuildingPrefab prefab, int x, int y) {
         this.prefab = prefab;
         this.x = x;
         this.y = y;
         this.road = false;
-        this.mapNode = null;
-        this.buildingNode = null;
         //System.out.println("Building " + prefab.getName() + " at " + x + ", " + y);
     }
 
@@ -30,11 +23,6 @@ public class Building {
         this.y = y;
         this.road = road;
         //System.out.println("Building " + prefab.getName() + " at " + x + ", " + y);
-    }
-
-    public void setNodes(MapNode mapNode) {
-        this.mapNode = mapNode;
-        this.buildingNode = mapNode.getBuildingNode();
     }
 
     /**
@@ -63,7 +51,6 @@ public class Building {
     public boolean getRoad() {
         return road;
     }
-
     public boolean isAccommodation() {
         return getPrefab().getName().equals("Accommodation");
     }

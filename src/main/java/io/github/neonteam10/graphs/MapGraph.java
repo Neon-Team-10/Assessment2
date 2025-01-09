@@ -8,7 +8,7 @@ import java.util.*;
  * This graph is purely for literal connections between map nodes (A building can only be connected to roads in this graph)
  */
 public class MapGraph {
-    final float BUILDING_GAIN_VALUE = 0.1f;
+    final float BUILDING_GAIN_VALUE = 1.0f;
     List<MapNode> nodes;
     BuildingGraph buildingGraph;
     public MapGraph() {
@@ -46,7 +46,7 @@ public class MapGraph {
      * @param node2 The node to find if connected to node 1
      * @return A boolean representing whether the two nodes are connected.
      */
-    public boolean connected(MapNode node1, MapNode node2) {
+    private boolean connected(MapNode node1, MapNode node2) {
         if (node1 == node2) {
             return false;
         }
@@ -106,10 +106,19 @@ public class MapGraph {
                 }
             }
         }
-        buildingGraph.calculateAccommodationQualityScore();
+
+
     }
 
-    public float getGainScore() {
-        return BUILDING_GAIN_VALUE * buildingGraph.nodes.size() + buildingGraph.accommodationQualityScore;
+    public float getBonus(String buildingType) {
+        if (buildingType == "Canteen") {
+            return buildingGraph.canteenBonus();
+        } else if (buildingType == "Accommodation") {
+            return buildingGraph.accommodationBonus();
+        } else {
+            return 0;
+        }
     }
+
+
 }
