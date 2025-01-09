@@ -1,5 +1,7 @@
 package io.github.neonteam10.Achievements;
 
+import io.github.neonteam10.map.GameMap;
+
 public abstract class GameAchievement {
     public String name;
     public String description;
@@ -25,6 +27,8 @@ public abstract class GameAchievement {
     protected abstract boolean getUnlockStatus();
 
     protected abstract void DisplayAchievement();
+
+    public abstract void setGameMap(GameMap gameMap);
 
 
 

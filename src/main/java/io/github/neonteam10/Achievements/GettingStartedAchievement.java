@@ -3,7 +3,7 @@ package io.github.neonteam10.Achievements;
 import io.github.neonteam10.map.GameMap;
 
 public class GettingStartedAchievement extends GameAchievement {
-    private final GameMap gameMap;
+    private GameMap gameMap;
     //Achievement for placing a building
     public GettingStartedAchievement(GameMap gameMap) {
         super("Getting Started!","Place a building!");
@@ -18,4 +18,5 @@ public class GettingStartedAchievement extends GameAchievement {
     protected void DisplayAchievement(){
         //Show achievement
     }
+    public void setGameMap(GameMap gameMap) { this.gameMap = gameMap;}
 }

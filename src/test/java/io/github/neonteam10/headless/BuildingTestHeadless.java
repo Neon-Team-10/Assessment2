@@ -43,7 +43,7 @@ public class BuildingTestHeadless extends AbstractHeadlessTest{
     for (BuildingPrefab buildingPrefab : availablePrefabs) {
         System.out.println(buildingPrefab.getName());
     }
-}   
+}
     @Test
     public void roadPrefabTest() {
         BuildingPrefab prefab = null;

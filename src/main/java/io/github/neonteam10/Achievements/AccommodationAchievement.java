@@ -5,7 +5,7 @@ import io.github.neonteam10.GameLogic;
 
 public class AccommodationAchievement extends GameAchievement {
 
-    private final GameMap gameMap;
+    private GameMap gameMap;
     private final GameLogic gameLogic;
 
     public AccommodationAchievement (GameMap gamemap, GameLogic gamelogic){
@@ -23,4 +23,5 @@ public class AccommodationAchievement extends GameAchievement {
     protected void DisplayAchievement(){
 
     }
+    public void setGameMap(GameMap gameMap) { this.gameMap = gameMap;}
 }

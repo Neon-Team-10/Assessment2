@@ -33,6 +33,7 @@ public class GameLogic {
     private float satisfaction;
     private float newBuildingSatisfaction;
     private int previousBuildingCount;
+    private int previousStudentCount;
     private int studentCount;
 
     GameScreen screen;
@@ -42,10 +43,7 @@ public class GameLogic {
     private float nextEventProbability;
     private float checkEventTimer;
     private float eventDurationTimer;
-
-
-    private final AchievementController achievementController;
-
+    AchievementController achievementController;
 
     public GameLogic(GameScreen screen) {
         this.screen = screen;
@@ -56,7 +54,6 @@ public class GameLogic {
         started = false;
         studentCount = 0;
         maximumAllowedBuildings = 1;
-        achievementController = new AchievementController(this, gameMap, new UiStage(new AssetManager(),this));
     }
 
     public void setMap(GameMap gameMap) {
@@ -183,7 +180,10 @@ public class GameLogic {
 
         //tick achievements
         if (!paused) {
-            achievementController.AchievementsUnlocked();
+            if (achievementController != null && gameMap != null) {
+                achievementController.setGameMap(gameMap);
+                achievementController.AchievementsUnlocked();
+            }
         }
 
         if (!paused) {
@@ -294,4 +294,9 @@ public class GameLogic {
         return gameOver;
     }
 
+    public void setAchievementController(AchievementController achievementController) {
+        this.achievementController = achievementController;
+    }
+
 }
+

@@ -1,11 +1,15 @@
 package io.github.neonteam10.Achievements;
+import com.badlogic.gdx.Game;
 import io.github.neonteam10.GameLogic;
+import io.github.neonteam10.map.GameMap;
 
 public class FresherAchievement extends GameAchievement{
+    private GameMap gameMap;
     private final GameLogic gameLogic;
-    public FresherAchievement(GameLogic gamelogic){
+    public FresherAchievement(GameMap gameMap, GameLogic gamelogic){
         super("Fresher","Complete your first year in UniSim (Play for a minute)");
         this.gameLogic = gamelogic;
+        this.gameMap = gameMap;
     }
 
     @Override
@@ -17,4 +21,5 @@ public class FresherAchievement extends GameAchievement{
     protected void DisplayAchievement() {
         //TODO: Display Achievement In UI pop up
     }
+    public void setGameMap(GameMap gameMap) { this.gameMap = gameMap;}
 }

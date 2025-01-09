@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import io.github.neonteam10.Achievements.AchievementController;
 import io.github.neonteam10.Achievements.ShowAchievement;
 import io.github.neonteam10.GameLogic;
 
@@ -24,12 +25,15 @@ public class UiStage extends Stage {
     Stack buildingToolbar;
     Table endGameTable;
     PauseButton pauseButton;
+    private final AchievementController achievementController;
 
     public UiStage(AssetManager assetManager, GameLogic gameLogic) {
         // The UI spans the whole screen.
         super(new ScreenViewport());
         this.assets = new UiAssets(assetManager);
         this.gameLogic = gameLogic;
+        achievementController = new AchievementController(gameLogic, gameLogic.getGameMap(), this);
+        gameLogic.setAchievementController(achievementController);
         showAchievement = new ShowAchievement(assets);
         showAchievement.setVisible(false);
         // Create a table to fill the whole screen.

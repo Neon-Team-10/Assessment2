@@ -11,7 +11,7 @@ public class AchievementController {
 
     private final List<GameAchievement> achievementList;
     private final GameLogic gameLogic;
-    private final GameMap gameMap;
+    private GameMap gameMap;
     private final UiStage uiStage;
 
 
@@ -23,17 +23,29 @@ public class AchievementController {
         achievementList.add(new AccommodationAchievement(this.gameMap,this.gameLogic));
         achievementList.add(new DiverseAchievement(this.gameMap,this.gameLogic));
         achievementList.add(new EducationAchievement(this.gameMap,this.gameLogic));
-        achievementList.add(new FresherAchievement(this.gameLogic));
+        achievementList.add(new FresherAchievement(this.gameMap, this.gameLogic));
         achievementList.add(new GettingStartedAchievement(this.gameMap));
         achievementList.add(new RecreationAchievement(this.gameLogic, this.gameMap));
-        achievementList.add(new ScoreAchievement(this.gameLogic));
+        achievementList.add(new ScoreAchievement(this.gameMap,this.gameLogic));
     }
     public void AchievementsUnlocked() {
-        for (GameAchievement achievement : achievementList) {
-            if (!achievement.getUnlocked() && achievement.getUnlockStatus()){
-                achievement.Unlock();
-                uiStage.activateAchievement(achievement.name, achievement.description);
+        if (gameMap != null) {
+            for (GameAchievement achievement : achievementList) {
+                if (!achievement.getUnlocked() && achievement.getUnlockStatus()) {
+                    achievement.Unlock();
+                    uiStage.activateAchievement(achievement.name, achievement.description);
+                }
             }
         }
     }
+    public void setGameMap(GameMap gameMap) {
+        if (this.gameMap != gameMap) {
+            for (GameAchievement achievement : achievementList) {
+                achievement.setGameMap(gameMap);
+            }
+
+        }
+
+    }
+
 }
