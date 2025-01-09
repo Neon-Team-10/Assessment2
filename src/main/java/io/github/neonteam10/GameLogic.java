@@ -43,7 +43,6 @@ public class GameLogic {
     private float checkEventTimer;
     private float eventDurationTimer;
 
-    Leaderboard leaderboard;
 
     private final AchievementController achievementController;
 
@@ -57,7 +56,6 @@ public class GameLogic {
         started = false;
         studentCount = 0;
         maximumAllowedBuildings = 1;
-        leaderboard = new Leaderboard("leaderboard.file");
         achievementController = new AchievementController(this, gameMap, new UiStage(new AssetManager(),this));
     }
 
