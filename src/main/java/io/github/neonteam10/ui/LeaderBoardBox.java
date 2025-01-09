@@ -78,12 +78,10 @@ public class LeaderBoardBox extends Table {
         leaderboard.readLeaderboard();
         List<Map.Entry<String, Integer>> scoreMap = leaderboard.getTopFive();
         if (scoreMap.size() != labelList.size()) {
-            System.out.println("made");
             labelList.add(new Label("", new Label.LabelStyle(uiAssets.getSmallFont(), Color.BLACK)));
             scoreTable.add(labelList.get(labelList.size()-1)).pad(10);
         }
         for (int i = 0; i < labelList.size(); i++) {
-            System.out.println(i);
             labelList.get(i).setText(String.format("%s: %d", scoreMap.get(i).getKey(), scoreMap.get(i).getValue()));
         }
     }
