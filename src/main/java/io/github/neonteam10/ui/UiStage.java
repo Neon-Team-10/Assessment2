@@ -24,16 +24,15 @@ public class UiStage extends Stage {
     Table topRightTable;
     Stack buildingToolbar;
     Table endGameTable;
+    Table achievementsTable;
     PauseButton pauseButton;
-    private final AchievementController achievementController;
+    private AchievementController achievementController;
 
     public UiStage(AssetManager assetManager, GameLogic gameLogic) {
         // The UI spans the whole screen.
         super(new ScreenViewport());
         this.assets = new UiAssets(assetManager);
         this.gameLogic = gameLogic;
-        achievementController = new AchievementController(gameLogic, gameLogic.getGameMap(), this);
-        gameLogic.setAchievementController(achievementController);
         showAchievement = new ShowAchievement(assets);
         showAchievement.setVisible(false);
         // Create a table to fill the whole screen.
@@ -65,11 +64,16 @@ public class UiStage extends Stage {
         pauseButton = new PauseButton(assets, gameLogic, pauseTable);
         topRightTable.add(pauseButton);
 
+        achievementsTable = new Table();
+        achievementsTable.add(showAchievement);
+
         // Create the building toolbar anchored to the bottom center.
         buildingToolbar = new BuildingToolbar(assets, gameLogic);
         mainTable.add(topLeftTable).expand().top().left().pad(25.0f);
         mainTable.add(topRightTable).expand().top().right().pad(25.0f);
         mainTable.row();
+        mainTable.add(achievementsTable).bottom().center().padBottom(128.0f).colspan(3);
+        mainTable.row().row();
         mainTable.add(buildingToolbar).bottom().center().padBottom(5.0f).colspan(3);
 
         mainStack.add(mainTable);
@@ -77,6 +81,10 @@ public class UiStage extends Stage {
 
         endGameTable = new EndGameUI(assets, gameLogic);
         mainStack.add(endGameTable);
+    }
+
+    public void setAchievementController(AchievementController controller) {
+        achievementController = controller;
     }
 
     @Override
@@ -109,7 +117,7 @@ public class UiStage extends Stage {
 
     public void activateAchievement(String name, String description) {
         showAchievement.clearChildren();
-        showAchievement.add(new Label("Achievement Unlocked:" + name , new Label.LabelStyle(assets.getLargeFont(), Color.BLACK))).align(Align.center).padBottom(10).row();
+        showAchievement.add(new Label("Achievement Unlocked: " + name , new Label.LabelStyle(assets.getLargeFont(), Color.BLACK))).align(Align.center).padBottom(10).row();
         showAchievement.add(new Label(description , new Label.LabelStyle(assets.getSmallFont(), Color.BLACK))).align(Align.center).padBottom(10).row();
         showAchievement.AchievementAppear();
     }

@@ -20,7 +20,7 @@ public class MapGraph {
         MapNode newNode = new MapNode(building);
         nodes.add(newNode);
         addAllNodeNeighbours(newNode);
-        System.out.println(newNode.getX() + " " + newNode.getY() + ": " + newNode.getNeighbours());
+        //System.out.println(newNode.getX() + " " + newNode.getY() + ": " + newNode.getNeighbours());
         if (!building.getRoad()) {
             BuildingNode buildingNode = new BuildingNode(building);
             buildingGraph.addNode(buildingNode);
@@ -32,7 +32,7 @@ public class MapGraph {
     public void addAllNodeNeighbours(MapNode node) {
         for (MapNode n : nodes) {
             if (connected(node, n)) {
-                System.out.println(node + " connected to " + n);
+                //System.out.println(node + " connected to " + n);
                 node.addNeighbour(n);
                 n.addNeighbour(node);
 
