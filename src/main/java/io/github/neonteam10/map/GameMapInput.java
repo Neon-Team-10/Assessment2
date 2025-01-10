@@ -67,9 +67,11 @@ public class GameMapInput extends InputAdapter {
             int placementY = getPlacementTileY();
             if (gameLogic.canPlaceBuilding() && map.canPlaceBuilding(prefab, placementX, placementY)) {
                 map.placeBuilding(prefab, placementX, placementY);
-
+                
                 // Deselect prefab after successfully placing a building.
-                gameLogic.setSelectedPrefabIndex(-1);
+                if(!(prefab.getName().equals("Road"))) {
+                    gameLogic.setSelectedPrefabIndex(-1);
+                }
             }
         }
         return true;
