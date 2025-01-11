@@ -10,6 +10,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import io.github.neonteam10.Achievements.AchievementController;
 import io.github.neonteam10.map.GameMap;
 import io.github.neonteam10.map.GameMapInput;
 import io.github.neonteam10.ui.UiStage;
@@ -90,6 +91,11 @@ public class GameScreen extends ScreenAdapter {
         try {
             var tiledMap = assetManager.get("maps/map.tmx", TiledMap.class);
             map = new GameMap(tiledMap);
+            AchievementController achievementController = new AchievementController(gameLogic, map, uiStage);
+            uiStage.setAchievementController(achievementController);
+            gameLogic.setMap(map);
+            gameLogic.setAchievementController(achievementController);
+
             mapRenderer = new OrthogonalTiledMapRenderer(tiledMap, batch);
 
             // Center the camera on the map.
