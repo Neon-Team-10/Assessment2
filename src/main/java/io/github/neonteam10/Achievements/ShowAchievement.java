@@ -53,8 +53,8 @@ public class ShowAchievement extends Table {
         setVisible(true);
         addAction(Actions.sequence(
                 Actions.fadeIn(0.3f),
-                Actions.delay(1f),
-                Actions.fadeOut(0.2f),
+                Actions.delay(1.5f),
+                Actions.fadeOut(0.3f),
                 Actions.run(() -> setVisible(false))
 
         ));
