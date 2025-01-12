@@ -25,8 +25,8 @@ public class MapGraph {
             BuildingNode buildingNode = new BuildingNode(building);
             buildingGraph.addNode(buildingNode);
             newNode.addBuildingNode(buildingNode);
-            recalculateBuildingGraphConnections();
         }
+        recalculateBuildingGraphConnections();
     }
 
     public void addAllNodeNeighbours(MapNode node) {

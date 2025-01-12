@@ -59,13 +59,13 @@ public class BuildingGraph {
                 for (BuildingNode neighbour : canteenNode.connections.keySet()) {
                     if (neighbour.building.isAccommodation()) {
                         int distanceToAccommodation = canteenNode.connections.get(neighbour);
-                        if (Math.abs(distanceToAccommodation) < 5){
+                        if (Math.abs(distanceToAccommodation) <= 5){
                             bonus += 0.5;
                         }
                     }
                     if (neighbour.building.isStudy()) {
                         int distanceToStudy = canteenNode.connections.get(neighbour);
-                        if (Math.abs(distanceToStudy) < 15) {
+                        if (Math.abs(distanceToStudy) <= 10) {
                             bonus += 1;
                         }
                     }
@@ -77,8 +77,9 @@ public class BuildingGraph {
 
     /*
      * Gives a flat score bonus based on how close the accommodation are to other facilities.
-     * For every accommodation building within radius 5 from a study building, you get a bonus of 5
-     * For every accommodation building within radius 15 from a recreation building, you get a bonus of 10
+     * For every accommodation building within radius 5 from a study building, you get a bonus of 0.5
+     * For every accommodation building within radius 15 from a recreation building, you get a bonus of 1
+     * While they may seem small, this is called every tic, and so quickly adds up
      */
     public float accommodationBonus() {
         float bonus = 0.0f;
@@ -87,11 +88,11 @@ public class BuildingGraph {
                 for (BuildingNode neighbour : accommNode.connections.keySet()) {
                     if (neighbour.building.isStudy()) {
                         int distanceToAccommodation = accommNode.connections.get(neighbour);
-                        if (distanceToAccommodation < 5) bonus += 5;
+                        if (distanceToAccommodation <= 5) bonus += .5;
                     }
                     if (neighbour.building.isRecreation()) {
                         int distanceToStudy = accommNode.connections.get(neighbour);
-                        if (distanceToStudy < 15) bonus += 10;
+                        if (distanceToStudy <= 10) bonus += 1;
                     }
                 }
             }
