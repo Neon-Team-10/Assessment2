@@ -151,10 +151,11 @@ public class GameLogic {
             return;
         }
 
+        /*
         //skip time to end
         if (Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             remainingTime = 0;
-        }
+        }*/
 
 
         // Update timers.
