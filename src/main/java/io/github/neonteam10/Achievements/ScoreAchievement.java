@@ -6,14 +6,14 @@ public class ScoreAchievement extends GameAchievement {
     private GameMap gameMap;
     private final GameLogic gameLogic;
     public ScoreAchievement(GameMap gameMap, GameLogic gamelogic){
-        super("Happy!","Reach maximum satisfaction!");
+        super("Happy!","Reach high satisfaction!");
         this.gameLogic = gamelogic;
         this.gameMap = gameMap;
     }
 
     @Override
     protected boolean getUnlockStatus() {
-        return gameLogic.getSatisfaction() == 1.0;
+        return gameLogic.getSatisfaction() >= 10000;
     }
 
     @Override
