@@ -29,11 +29,8 @@ public class EndGameUI extends Table {
             }
             if (getChildren().isEmpty() && background != null) {
 
-                Table score = new Table();
-                Label.LabelStyle scoreLabelStyle = new Label.LabelStyle(uiAssets.getLargeFont(), Color.BLACK);
-                Label scorelabel = new Label("Score: " + gameLogic.getSatisfaction() * 10, scoreLabelStyle);
-                score.add(scorelabel).pad(16.0f);
-                add(score);
+                add(new EndGameScoreLabel(uiAssets, gameLogic)).colspan(2).center();
+                row();
 
                 Stack stack = new Stack();
                 Table top = new Table();
