@@ -69,3 +69,10 @@ jobs:
           name: test-summary
           path: test-summary.md
         if: always()
+        
+      - name: Upload Library Jar
+        uses: actions/upload-artifact@v3
+        with:
+          name: lib.jar
+          path: lib.jar
+        if: always()
