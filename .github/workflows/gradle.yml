@@ -70,9 +70,9 @@ jobs:
           path: test-summary.md
         if: always()
         
-      - name: Upload Library Jar
+      - name: Upload Jar
         uses: actions/upload-artifact@v3
         with:
-          name: lib.jar
-          path: Assessment2/lib.jar
+          name: unisim.jar
+          path: unisim.jar
         if: always()
