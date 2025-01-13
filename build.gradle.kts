@@ -36,7 +36,7 @@ tasks.compileJava {
 tasks.jar {
     manifest {
         attributes(
-            "Main-Class" to "io.github.uoyteamsix.UniSimGame"
+            "Main-Class" to "io.github.neonteam10.UniSimGame"
         )
     }
 }
