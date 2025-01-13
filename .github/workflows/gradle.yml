@@ -74,5 +74,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: lib.jar
-          path: lib.jar
+          path: Assessment2/lib.jar
         if: always()
