@@ -67,5 +67,5 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: test-summary
-          path: test-summary.md
+          path: triangle/lib/build/reports/jacoco/test/html/
         if: always()
