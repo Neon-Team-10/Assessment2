@@ -74,6 +74,6 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: unisim.jar
-          paths: unisim.jar
+          path: "test/results/**/TEST-*.xml"
           output: unisim.jar
         if: always()
