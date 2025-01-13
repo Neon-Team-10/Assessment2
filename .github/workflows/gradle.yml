@@ -70,10 +70,3 @@ jobs:
           path: test-summary.md
         if: always()
         
-      - name: Upload Jar
-        uses: actions/upload-artifact@v3
-        with:
-          name: unisim.jar
-          path: test/results/**/unisim.jar
-          output: unisim.jar
-        if: always()
